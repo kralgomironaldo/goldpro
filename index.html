@@ -3,30 +3,45 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GoldPro | Canlı Altın, Döviz ve Metal Fiyatları</title>
-  <meta name="description" content="GoldPro ile altın, gümüş, platin, paladyum, bakır ve döviz fiyatlarını takip edin. Altın ve döviz hesaplama araçlarını kullanın.">
-  <meta name="keywords" content="altın fiyatları, gram altın, çeyrek altın, döviz, dolar, euro, gümüş, platin, paladyum, bakır, altın hesaplama">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#101b2b">
+  <title>GoldPro | Canlı Altın, Döviz ve Değerli Metal Fiyatları</title>
+  <meta name="description" content="GoldPro ile altın, has altın, gram, çeyrek, yarım, tam, Cumhuriyet altını, değerli metaller ve döviz kurlarını takip edin.">
+  <meta name="keywords" content="GoldPro, altın fiyatları, has altın, gram altın, çeyrek altın, yarım altın, tam altın, Cumhuriyet altını, döviz, dolar, euro, gümüş, platin">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#17130a">
 
   <meta property="og:title" content="GoldPro | Altın ve Döviz">
-  <meta property="og:description" content="Altın, metal ve döviz piyasalarını GoldPro ile takip edin.">
+  <meta property="og:description" content="Altın, döviz ve değerli metal fiyatlarını takip edin.">
   <meta property="og:type" content="website">
+
+  <!-- Tarayıcı sekmesi için logo -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='23' fill='%2317130a'/%3E%3Cpath d='M50 9 89 50 50 91 11 50Z' fill='%23edbd50'/%3E%3Cpath d='M50 23 76 50 50 77 24 50Z' fill='%2317130a'/%3E%3Cpath d='M50 35 65 50 50 65 35 50Z' fill='%23edbd50'/%3E%3C/svg%3E">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "GoldPro",
+    "description": "Altın, döviz ve değerli metal fiyatları platformu",
+    "inLanguage": "tr-TR"
+  }
+  </script>
 
   <style>
     :root {
-      --bg: #0b1422;
-      --panel: #111f31;
-      --panel2: #17283d;
-      --gold: #e8bd67;
-      --gold2: #f5d995;
-      --text: #f4f6fa;
-      --muted: #9eacbd;
-      --green: #43d69a;
-      --red: #ff7272;
-      --border: rgba(255,255,255,.09);
+      --bg: #100e09;
+      --bg2: #17130a;
+      --panel: #201b10;
+      --panel2: #292213;
+      --gold: #e8b94f;
+      --gold2: #ffdc83;
+      --gold3: #a97824;
+      --text: #fff8e9;
+      --muted: #b5a98e;
+      --green: #70d6a0;
+      --red: #f08070;
+      --border: rgba(232,185,79,.17);
       --radius: 17px;
     }
 
@@ -37,9 +52,11 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse at 50% -20%, rgba(232,185,79,.12), transparent 48%),
+        var(--bg);
       color: var(--text);
+      font-family: Inter, Arial, sans-serif;
       min-height: 100vh;
     }
 
@@ -57,69 +74,80 @@
     }
 
     .container {
-      width: min(1180px, 92%);
+      width: min(1190px, 92%);
       margin: auto;
     }
 
+    /* HEADER */
+
     header {
-      background: rgba(11,20,34,.96);
-      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
+      z-index: 50;
+      background: rgba(16,14,9,.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
     }
 
     .header-inner {
-      min-height: 76px;
+      min-height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
     }
 
-    .logo {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 25px;
-      font-weight: 900;
-      letter-spacing: -.8px;
+      gap: 11px;
+      flex-shrink: 0;
     }
 
-    .logo-symbol {
-      width: 38px;
-      height: 38px;
+    .brand-icon {
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--gold2), #b77b27);
-      color: #172033;
-      border-radius: 11px;
-      font-size: 21px;
-      transform: rotate(45deg);
+      position: relative;
+      background: linear-gradient(145deg, #ffe7a0, #d69b2f 60%, #956019);
+      border-radius: 14px;
+      box-shadow: 0 5px 24px rgba(232,185,79,.22);
     }
 
-    .logo-symbol span {
-      transform: rotate(-45deg);
+    .brand-icon svg {
+      width: 29px;
+      height: 29px;
     }
 
-    .logo em {
+    .brand-name {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .brand-name span {
       color: var(--gold);
-      font-style: normal;
+    }
+
+    .brand-caption {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 2.2px;
+      margin-top: 3px;
     }
 
     nav {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 7px;
+      gap: 5px;
     }
 
     nav button {
       background: transparent;
-      border: 0;
       color: var(--muted);
-      padding: 10px 11px;
+      border: 0;
+      padding: 11px 12px;
       border-radius: 9px;
       font-size: 13px;
       transition: .2s;
@@ -128,96 +156,89 @@
     nav button:hover,
     nav button.active {
       color: var(--gold2);
-      background: rgba(232,189,103,.1);
+      background: rgba(232,185,79,.11);
     }
 
     .mobile-menu {
       display: none;
+      background: var(--panel);
       color: var(--gold);
-      background: transparent;
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 9px 12px;
+      border-radius: 10px;
+      padding: 10px 13px;
     }
 
+    /* GENERAL */
+
     main {
-      padding: 34px 0 70px;
       min-height: 75vh;
+      padding: 32px 0 55px;
     }
 
     .page {
       display: none;
-      animation: appear .25s ease;
+      animation: fade .25s ease;
     }
 
     .page.active {
       display: block;
     }
 
-    @keyframes appear {
-      from { opacity: 0; transform: translateY(6px); }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(7px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at 85% 15%, rgba(232,189,103,.18), transparent 30%),
-        linear-gradient(120deg, #17283d, #101b2b);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 43px;
-      margin-bottom: 27px;
     }
 
     .eyebrow {
       color: var(--gold);
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 2px;
       text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 3px;
+      font-weight: 800;
       margin-bottom: 14px;
     }
 
-    h1 {
-      font-size: clamp(30px, 5vw, 47px);
-      line-height: 1.13;
-      margin-bottom: 15px;
-    }
-
-    h1 span, .gold-text {
-      color: var(--gold);
-    }
-
-    .hero p {
-      max-width: 620px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .hero-actions {
+    .section-head {
       display: flex;
-      gap: 10px;
+      align-items: end;
+      justify-content: space-between;
       flex-wrap: wrap;
-      margin-top: 25px;
+      gap: 15px;
+      margin: 30px 0 17px;
+    }
+
+    .section-head h2 {
+      font-size: 23px;
+      letter-spacing: -.5px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .gold {
+      color: var(--gold);
     }
 
     .btn {
       border: 0;
       border-radius: 10px;
-      padding: 12px 18px;
-      font-weight: bold;
+      padding: 12px 17px;
+      font-weight: 800;
       transition: .2s;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold2), #c38b37);
-      color: #152033;
+    .btn-gold {
+      color: #211707;
+      background: linear-gradient(135deg, #ffe8a4, #e8b94f 60%, #bd8126);
+      box-shadow: 0 5px 20px rgba(232,185,79,.12);
     }
 
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,.07);
+    .btn-dark {
+      color: var(--gold2);
+      background: var(--panel2);
       border: 1px solid var(--border);
     }
 
@@ -226,133 +247,180 @@
       filter: brightness(1.08);
     }
 
-    .section-heading {
+    /* HERO */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 53px 45px;
+      border-radius: 25px;
+      border: 1px solid rgba(232,185,79,.27);
+      background:
+        radial-gradient(circle at 85% 50%, rgba(232,185,79,.22), transparent 28%),
+        linear-gradient(115deg, #30230f, #1d180e 55%, #17130a);
+      box-shadow: 0 20px 65px rgba(0,0,0,.2);
+    }
+
+    .hero::after {
+      content: "◆";
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%) rotate(15deg);
+      font-size: clamp(100px, 18vw, 220px);
+      color: rgba(255,220,131,.09);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+    }
+
+    .hero h1 {
+      font-size: clamp(35px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: var(--gold2);
+    }
+
+    .hero p {
+      color: #c7b999;
+      line-height: 1.8;
+      max-width: 540px;
+      font-size: 14px;
+    }
+
+    .hero-actions {
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 15px;
-      margin: 30px 0 17px;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 27px;
     }
 
-    .section-heading h2 {
-      font-size: 22px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 5px;
-    }
+    /* PRICE CARDS */
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0,1fr));
       gap: 13px;
     }
 
     .price-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 17px;
       min-width: 0;
-      transition: .2s;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #292213, #1c180f);
+      border: 1px solid var(--border);
+      transition: .22s;
+      position: relative;
+      overflow: hidden;
     }
 
     .price-card:hover {
-      border-color: rgba(232,189,103,.4);
       transform: translateY(-3px);
+      border-color: rgba(255,220,131,.48);
+      box-shadow: 0 12px 30px rgba(0,0,0,.2);
+    }
+
+    .price-card::after {
+      content: "";
+      position: absolute;
+      width: 85px;
+      height: 85px;
+      right: -45px;
+      bottom: -48px;
+      border-radius: 50%;
+      background: rgba(232,185,79,.07);
     }
 
     .card-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 8px;
-      margin-bottom: 17px;
+      margin-bottom: 19px;
     }
 
     .card-name {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .card-icon {
-      width: 31px;
-      height: 31px;
-      border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
       display: grid;
       place-items: center;
-      color: var(--gold);
-      background: rgba(232,189,103,.1);
-      font-weight: bold;
+      color: #201707;
+      background: linear-gradient(135deg, #ffe7a0, #d99d32);
+      font-weight: 900;
     }
 
     .price {
-      font-size: clamp(18px, 2.5vw, 24px);
-      font-weight: 800;
+      color: var(--gold2);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 900;
       overflow-wrap: anywhere;
+      letter-spacing: -.5px;
     }
 
     .price-sub {
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10px;
       margin-top: 7px;
     }
 
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .price-state {
+      font-size: 10px;
       color: var(--green);
-      font-size: 11px;
-      margin-top: 12px;
+      margin-top: 13px;
     }
 
-    .status::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
+    .skeleton {
+      display: inline-block;
+      height: 20px;
+      width: 75%;
+      border-radius: 6px;
+      background: linear-gradient(90deg,#332a18,#514126,#332a18);
+      background-size: 200% 100%;
+      animation: shimmer 1.3s infinite;
     }
 
-    .status.error {
-      color: var(--red);
+    @keyframes shimmer {
+      to { background-position: -200% 0; }
     }
 
-    .status.loading {
-      color: var(--gold);
-    }
-
-    .info-strip {
-      margin-top: 20px;
-      background: rgba(232,189,103,.07);
-      border: 1px solid rgba(232,189,103,.18);
-      padding: 14px 16px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-    }
+    /* TOOLBAR / TABLE */
 
     .toolbar {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
       flex-wrap: wrap;
-      margin: 20px 0;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
     }
 
-    .search {
-      width: min(330px, 100%);
-      background: var(--panel);
+    .search,
+    .field {
+      background: #17130b;
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 13px 14px;
+      width: 100%;
       outline: none;
+    }
+
+    .search {
+      max-width: 340px;
     }
 
     .search:focus,
@@ -360,31 +428,36 @@
       border-color: var(--gold);
     }
 
+    select option {
+      background: #201b10;
+      color: white;
+    }
+
     .table-wrap {
       overflow-x: auto;
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: var(--panel);
     }
 
     table {
       width: 100%;
+      min-width: 570px;
       border-collapse: collapse;
-      min-width: 520px;
     }
 
     th, td {
-      padding: 15px 17px;
-      border-bottom: 1px solid var(--border);
       text-align: left;
+      padding: 15px 17px;
+      border-bottom: 1px solid rgba(232,185,79,.1);
       font-size: 13px;
     }
 
     th {
-      color: var(--muted);
+      background: rgba(232,185,79,.07);
+      color: var(--gold2);
       font-size: 11px;
-      font-weight: 600;
-      background: rgba(255,255,255,.025);
+      font-weight: 800;
     }
 
     tr:last-child td {
@@ -395,28 +468,40 @@
       text-align: right;
     }
 
-    .table-symbol {
-      color: var(--gold);
-      font-weight: bold;
-      margin-right: 8px;
+    .table-name {
+      color: var(--text);
+      font-weight: 700;
     }
 
+    .table-sub {
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+    .table-price {
+      color: var(--gold2);
+      font-weight: 800;
+    }
+
+    /* PANELS */
+
     .panel {
-      background: var(--panel);
+      background: linear-gradient(145deg, #282112, #1c180f);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 23px;
     }
 
     .panel h2 {
-      margin-bottom: 17px;
-      font-size: 21px;
+      font-size: 20px;
+      margin-bottom: 18px;
     }
 
     .calculator-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 17px;
+      gap: 16px;
     }
 
     .field-group {
@@ -430,24 +515,10 @@
       margin-bottom: 8px;
     }
 
-    .field {
-      width: 100%;
-      background: #0c1726;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 13px;
-      outline: none;
-    }
-
-    select.field option {
-      background: #111f31;
-    }
-
     .result-box {
-      background: rgba(232,189,103,.08);
-      border: 1px solid rgba(232,189,103,.2);
-      border-radius: 13px;
+      border: 1px solid rgba(232,185,79,.28);
+      background: rgba(232,185,79,.09);
+      border-radius: 12px;
       padding: 18px;
       margin-top: 10px;
     }
@@ -458,50 +529,37 @@
 
     .result-box strong {
       display: block;
+      font-size: 25px;
       color: var(--gold2);
-      font-size: 26px;
       margin-top: 7px;
       overflow-wrap: anywhere;
     }
 
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .stat {
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      padding: 15px;
+    .info-box {
+      background: rgba(232,185,79,.07);
+      border: 1px solid rgba(232,185,79,.18);
       border-radius: 12px;
-    }
-
-    .stat span {
-      display: block;
+      padding: 15px;
       color: var(--muted);
       font-size: 11px;
-      margin-bottom: 8px;
+      line-height: 1.7;
+      margin-top: 18px;
     }
 
-    .stat strong {
-      font-size: 19px;
-      color: var(--gold2);
-    }
+    /* CONTENT */
 
     .content-panel {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 25px;
-      line-height: 1.8;
+      padding: 27px;
       color: var(--muted);
+      line-height: 1.8;
     }
 
     .content-panel h2,
     .content-panel h3 {
-      color: var(--text);
+      color: var(--gold2);
       margin: 18px 0 8px;
     }
 
@@ -513,63 +571,64 @@
       margin-bottom: 12px;
     }
 
-    .content-panel ul {
-      padding-left: 22px;
-      margin-bottom: 12px;
+    /* SMALL COUNTERS */
+
+    .tiny-counters {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 13px;
+      margin-top: 25px;
+      color: #84775e;
+      font-size: 9px;
+      opacity: .8;
     }
 
-    .counter-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 18px;
+    .tiny-counters span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .counter {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 16px;
-      border-radius: 12px;
+    .tiny-counters strong {
+      color: #c5a45c;
+      font-size: 10px;
+      font-weight: 700;
     }
 
-    .counter span {
-      color: var(--muted);
-      font-size: 12px;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .counter strong {
-      color: var(--gold);
-      font-size: 23px;
-    }
+    /* FOOTER */
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 28px 0;
-      color: var(--muted);
-      font-size: 12px;
+      background: #0c0a06;
+      padding: 27px 0;
     }
 
     .footer-inner {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      align-items: center;
       flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      color: #9e9278;
+      font-size: 11px;
+      margin-top: 9px;
     }
 
     .footer-links {
       display: flex;
-      gap: 15px;
       flex-wrap: wrap;
+      gap: 15px;
     }
 
     .footer-links button {
       border: 0;
       background: none;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .footer-links button:hover {
@@ -578,36 +637,26 @@
 
     .last-update {
       color: var(--muted);
-      font-size: 11px;
-      margin-top: 12px;
+      font-size: 10px;
+      margin-top: 13px;
     }
 
-    .notice {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-      margin-top: 18px;
-    }
-
-    @media (max-width: 900px) {
+    @media(max-width:950px) {
       .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      nav {
-        gap: 2px;
+        grid-template-columns: repeat(2,minmax(0,1fr));
       }
 
       nav button {
-        padding: 9px 7px;
+        padding: 9px 8px;
+        font-size: 11px;
       }
     }
 
-    @media (max-width: 650px) {
+    @media(max-width:680px) {
       .header-inner {
-        min-height: 66px;
+        min-height: 70px;
         flex-wrap: wrap;
-        padding: 12px 0;
+        padding: 10px 0;
       }
 
       .mobile-menu {
@@ -617,7 +666,8 @@
       nav {
         display: none;
         width: 100%;
-        padding-bottom: 8px;
+        flex-wrap: wrap;
+        padding-bottom: 9px;
       }
 
       nav.open {
@@ -625,42 +675,41 @@
       }
 
       nav button {
-        text-align: left;
+        font-size: 12px;
       }
 
       .hero {
-        padding: 27px 21px;
+        padding: 33px 23px;
       }
 
-      .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-      }
-
-      .price-card {
-        padding: 13px;
+      .hero h1 {
+        letter-spacing: -1px;
       }
 
       .calculator-grid {
         grid-template-columns: 1fr;
       }
 
-      .stat-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .counter-row {
-        grid-template-columns: 1fr 1fr;
+      .section-head h2 {
+        font-size: 20px;
       }
 
       main {
         padding-top: 22px;
       }
+
+      .tiny-counters {
+        justify-content: center;
+      }
     }
 
-    @media (max-width: 370px) {
+    @media(max-width:380px) {
       .cards {
         grid-template-columns: 1fr;
+      }
+
+      .brand-name {
+        font-size: 22px;
       }
     }
   </style>
@@ -670,9 +719,20 @@
 
 <header>
   <div class="container header-inner">
-    <a class="logo" href="#" onclick="showPage('home');return false;">
-      <div class="logo-symbol"><span>◆</span></div>
-      <span>Gold<em>Pro</em></span>
+
+    <a class="brand" href="#" onclick="showPage('home');return false;">
+      <div class="brand-icon">
+        <svg viewBox="0 0 100 100" fill="none" aria-label="GoldPro">
+          <path d="M50 5 95 50 50 95 5 50Z" fill="#261b08"/>
+          <path d="M50 17 83 50 50 83 17 50Z" fill="#f6d47b"/>
+          <path d="M50 29 71 50 50 71 29 50Z" fill="#6e4814"/>
+          <path d="M50 39 61 50 50 61 39 50Z" fill="#ffe9a8"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Gold<span>Pro</span></div>
+        <div class="brand-caption">PRECIOUS MARKETS</div>
+      </div>
     </a>
 
     <button class="mobile-menu" onclick="toggleMenu()">☰ Menü</button>
@@ -694,72 +754,78 @@
   <section class="page active" id="home">
 
     <div class="hero">
-      <div class="eyebrow">Finansal piyasalar tek noktada</div>
-      <h1>Piyasayı takip et.<br><span>Değerini bil.</span></h1>
-      <p>
-        GoldPro ile altın, değerli metaller ve döviz kurlarını
-        kolayca takip et. Hesaplama araçlarımızla değerleri incele.
-      </p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" onclick="showPage('gold')">Altın Fiyatları</button>
-        <button class="btn btn-secondary" onclick="showPage('calculator')">Hesaplama Yap</button>
+      <div class="hero-content">
+        <div class="eyebrow">◆ Değerli piyasalar tek adreste</div>
+        <h1>Değerini bil.<br><span>Piyasayı keşfet.</span></h1>
+        <p>
+          Altın, döviz ve değerli metal fiyatlarını tek ekranda takip et.
+          GoldPro ile piyasa verilerini incele ve hesaplamalarını kolayca yap.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-gold" onclick="showPage('gold')">Altın Fiyatları →</button>
+          <button class="btn btn-dark" onclick="showPage('calculator')">Hesaplama Yap</button>
+        </div>
       </div>
     </div>
 
-    <div class="section-heading">
+    <div class="section-head">
       <div>
         <h2>Öne Çıkan Fiyatlar</h2>
-        <p>Piyasa verilerinden alınan son değerler</p>
+        <p>Seçtiğin para biriminde güncel piyasa verileri</p>
       </div>
-      <button class="btn btn-secondary" onclick="refreshAll()">↻ Yenile</button>
+      <button class="btn btn-dark" onclick="refreshAll()">↻ Yenile</button>
     </div>
 
-    <div class="cards" id="homeCards">
-      <div class="price-card">Fiyatlar yükleniyor...</div>
+    <div class="cards" id="homeCards"></div>
+
+    <div class="info-box">
+      Fiyatlar API servislerinden alınır. Altın ve metal spot fiyatları
+      ile döviz referans kurları farklı zamanlarda güncellenebilir.
     </div>
 
-    <div class="section-heading">
-      <div>
-        <h2>GoldPro İstatistikleri</h2>
-        <p>Bu tarayıcıda tutulan yerel sayaçlar</p>
-      </div>
-    </div>
+    <div class="last-update" id="lastUpdate">Veriler güncelleniyor...</div>
 
-    <div class="counter-row">
-      <div class="counter">
-        <span>Bu tarayıcıdaki ziyaret sayısı</span>
-        <strong id="visitCount">0</strong>
-      </div>
-      <div class="counter">
-        <span>Bu tarayıcıdaki aktif sekmeler</span>
-        <strong id="activeCount">1</strong>
-      </div>
+    <div class="tiny-counters">
+      <span>◉ Ziyaret <strong id="visitCount">0</strong></span>
+      <span>● Aktif sekme <strong id="activeCount">1</strong></span>
     </div>
-
-    <div class="info-strip">
-      Sayaçlar veritabanı kullanmaz. Yalnızca aynı tarayıcı ve cihazdaki
-      verileri gösterir; tüm ziyaretçilerin ortak sayısı değildir.
-    </div>
-
-    <p class="last-update" id="lastUpdate">Fiyatlar yükleniyor...</p>
   </section>
 
   <!-- ALTIN -->
   <section class="page" id="gold">
-    <div class="section-heading">
+
+    <div class="section-head">
       <div>
         <h2>Altın Fiyatları</h2>
-        <p>Gram altın ve farklı ayarların teorik spot karşılıkları</p>
+        <p>Has altın ve farklı altın türlerinin teorik değerleri</p>
       </div>
-      <button class="btn btn-secondary" onclick="refreshAll()">↻ Yenile</button>
+      <button class="btn btn-dark" onclick="refreshAll()">↻ Yenile</button>
     </div>
 
-    <div class="cards" id="goldCards"></div>
+    <div class="toolbar">
+      <div style="max-width:260px;width:100%">
+        <label class="field-group">
+          <span style="display:block;color:var(--muted);font-size:11px;margin-bottom:7px">Gösterim para birimi</span>
+          <select class="field" id="displayCurrency" onchange="onDisplayCurrencyChange()">
+            <option value="TRY">TRY - Türk Lirası</option>
+          </select>
+        </label>
+      </div>
+    </div>
 
-    <div class="section-heading">
+    <div class="section-head">
       <div>
-        <h2>Altın Türleri</h2>
-        <p>Yaklaşık saf altın içeriğine göre hesaplanan değerler</p>
+        <h2>Altın Ayarları</h2>
+        <p>Yalnızca seçilen beş ayar gösterilir</p>
+      </div>
+    </div>
+
+    <div class="cards" id="karatCards"></div>
+
+    <div class="section-head">
+      <div>
+        <h2>Altın Çeşitleri</h2>
+        <p>Has altın spot fiyatı üzerinden hesaplanan teorik metal değerleri</p>
       </div>
     </div>
 
@@ -767,9 +833,9 @@
       <table>
         <thead>
           <tr>
-            <th>Altın Türü</th>
-            <th>Yaklaşık ağırlık</th>
-            <th>Saf altın oranı</th>
+            <th>Altın türü</th>
+            <th>Ağırlık</th>
+            <th>Saf altın içeriği</th>
             <th>Teorik değer</th>
           </tr>
         </thead>
@@ -777,41 +843,46 @@
       </table>
     </div>
 
-    <div class="info-strip">
-      Bu tablo piyasa alış/satış fiyatı değildir. Kuyumcu makası, işçilik,
-      basım yılı ve ürün özellikleri gerçek fiyatı değiştirebilir.
+    <div class="info-box">
+      Çeyrek, yarım, tam, Cumhuriyet, Ata ve Reşat altınlarının tabloda
+      gösterilen tutarları spot altın içeriği üzerinden hesaplanır.
+      Kuyumcu satış fiyatı değildir; işçilik, prim ve alış-satış farkı dahil değildir.
     </div>
   </section>
 
   <!-- METALLER -->
   <section class="page" id="metals">
-    <div class="section-heading">
+
+    <div class="section-head">
       <div>
         <h2>Değerli Metaller</h2>
-        <p>API tarafından desteklenen metal fiyatları</p>
+        <p>Desteklenen metal sembollerinin API fiyatları</p>
       </div>
-      <button class="btn btn-secondary" onclick="refreshAll()">↻ Yenile</button>
+      <button class="btn btn-dark" onclick="refreshAll()">↻ Yenile</button>
     </div>
 
     <div class="cards" id="metalCards"></div>
 
-    <div class="info-strip">
-      Metal fiyatları genellikle ons veya ilgili API birimi üzerinden sağlanır.
-      Ekrandaki USD karşılıkları yaklaşık gösterimdir.
+    <div class="info-box">
+      Altın, gümüş, platin ve paladyum ons fiyatları troy ons bazındadır.
+      Bakırın API birimi farklı olabileceği için ayrı gösterilir.
     </div>
   </section>
 
   <!-- DÖVİZ -->
   <section class="page" id="currencies">
-    <div class="section-heading">
+
+    <div class="section-head">
       <div>
-        <h2>Döviz Kurları</h2>
-        <p>USD bazlı günlük referans döviz kurları</p>
+        <h2>Döviz Piyasası</h2>
+        <p>API tarafından sunulan para birimleri</p>
       </div>
     </div>
 
     <div class="toolbar">
-      <input class="search" id="currencySearch" placeholder="Para birimi ara..." oninput="renderCurrencies()">
+      <input class="search" id="currencySearch"
+        placeholder="Para birimi ara..."
+        oninput="renderCurrencies()">
       <span class="last-update" id="currencyDate"></span>
     </div>
 
@@ -819,39 +890,40 @@
       <table>
         <thead>
           <tr>
-            <th>Para Birimi</th>
+            <th>Para birimi</th>
             <th>Kod</th>
-            <th>1 USD karşılığı</th>
+            <th>1 birimin TRY karşılığı</th>
           </tr>
         </thead>
-        <tbody id="currencyTable">
-          <tr><td colspan="3">Döviz verileri yükleniyor...</td></tr>
-        </tbody>
+        <tbody id="currencyTable"></tbody>
       </table>
     </div>
 
-    <div class="info-strip">
-      Döviz verileri Frankfurter referans API'sinden alınır. Bu veriler
-      anlık banka veya serbest piyasa alış/satış fiyatları değildir.
+    <div class="info-box">
+      Döviz kurları Frankfurter referans verilerinden alınır.
+      Bunlar banka veya serbest piyasa anlık alış-satış fiyatları değildir.
     </div>
   </section>
 
   <!-- HESAPLAMA -->
   <section class="page" id="calculator">
-    <div class="section-heading">
+
+    <div class="section-head">
       <div>
-        <h2>Hesaplama Araçları</h2>
-        <p>Altın ve döviz için pratik hesaplama</p>
+        <h2>Hesaplama Merkezi</h2>
+        <p>Altın ve döviz hesaplamaları</p>
       </div>
     </div>
 
     <div class="calculator-grid">
+
       <div class="panel">
-        <h2>Altın Hesaplama</h2>
+        <h2>◆ Altın Hesaplama</h2>
 
         <div class="field-group">
           <label>Gram miktarı</label>
-          <input class="field" type="number" id="goldGrams" min="0" step="any" value="10" oninput="calculateGold()">
+          <input class="field" type="number" min="0" step="any"
+            id="goldGrams" value="10" oninput="calculateGold()">
         </div>
 
         <div class="field-group">
@@ -859,55 +931,60 @@
           <select class="field" id="goldKarat" onchange="calculateGold()">
             <option value="24">24 Ayar</option>
             <option value="22">22 Ayar</option>
-            <option value="21">21 Ayar</option>
             <option value="18">18 Ayar</option>
             <option value="14">14 Ayar</option>
-            <option value="10">10 Ayar</option>
             <option value="8">8 Ayar</option>
-            <option value="1">1 Ayar</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Gösterim para birimi</label>
+          <select class="field" id="goldCalcCurrency" onchange="calculateGold()">
+            <option value="TRY">TRY</option>
           </select>
         </div>
 
         <div class="result-box">
-          <small>Yaklaşık teorik değer</small>
-          <strong id="goldResult">Hesaplanıyor...</strong>
+          <small>Yaklaşık teorik altın değeri</small>
+          <strong id="goldResult"><span class="skeleton"></span></strong>
         </div>
       </div>
 
       <div class="panel">
-        <h2>Döviz Çevirici</h2>
+        <h2>↔ Döviz Çevirici</h2>
 
         <div class="field-group">
           <label>Miktar</label>
-          <input class="field" type="number" id="currencyAmount" value="100" min="0" step="any" oninput="calculateCurrency()">
+          <input class="field" type="number" min="0" step="any"
+            id="currencyAmount" value="100" oninput="calculateCurrency()">
         </div>
 
         <div class="field-group">
           <label>Kaynak para birimi</label>
-          <select class="field" id="currencyFrom" onchange="calculateCurrency()"></select>
+          <select class="field" id="currencyFrom" onchange="calculateCurrency()">
+            <option value="TRY">TRY</option>
+          </select>
         </div>
 
         <div class="field-group">
           <label>Hedef para birimi</label>
           <select class="field" id="currencyTo" onchange="calculateCurrency()">
-            <option value="TRY">Türk Lirası (TRY)</option>
-            <option value="USD">ABD Doları (USD)</option>
-            <option value="EUR">Euro (EUR)</option>
-            <option value="GBP">İngiliz Sterlini (GBP)</option>
+            <option value="USD">USD</option>
           </select>
         </div>
 
         <div class="result-box">
-          <small>Yaklaşık karşılık</small>
-          <strong id="currencyResult">Hesaplanıyor...</strong>
+          <small>Çevrilmiş tutar</small>
+          <strong id="currencyResult"><span class="skeleton"></span></strong>
         </div>
       </div>
+
     </div>
 
-    <p class="notice">
-      Hesaplamalar referans fiyatları üzerinden yapılır. Gerçek işlem
-      fiyatları kurumlara, komisyonlara ve piyasa koşullarına göre değişebilir.
-    </p>
+    <div class="info-box">
+      Hesaplama sonuçları API referans verileri üzerinden hesaplanır.
+      Gerçek işlem tutarları farklı olabilir.
+    </div>
   </section>
 
   <!-- HAKKIMIZDA -->
@@ -915,27 +992,24 @@
     <div class="content-panel">
       <h2>GoldPro Hakkında</h2>
       <p>
-        GoldPro; altın, değerli metaller ve döviz piyasalarına ilişkin
-        referans fiyatları tek bir ekranda sunmak amacıyla hazırlanmış
-        bilgilendirme platformudur.
+        GoldPro; altın, değerli metaller ve döviz fiyatlarını bir araya
+        getiren, kullanıcı dostu bir piyasa takip platformudur.
       </p>
 
       <h3>Amacımız</h3>
       <p>
-        Kullanıcıların piyasa verilerini daha kolay takip edebilmesini,
-        farklı değerleri karşılaştırabilmesini ve temel hesaplamaları
-        yapabilmesini sağlamaktır.
+        Piyasa verilerini anlaşılır bir tasarımla sunmak ve kullanıcıların
+        temel hesaplamalarını kolaylaştırmaktır.
       </p>
 
       <h3>Veri Kaynakları</h3>
       <p>
-        Metal fiyatları Gold API, döviz referans verileri ise
-        Frankfurter API üzerinden alınır. Bu servislerin kullanılabilirliği
-        ve güncelleme sıklığı ilgili sağlayıcılara bağlıdır.
+        Metal fiyatları Gold API, döviz referans verileri Frankfurter API
+        üzerinden alınır. Verilerin güncellenme sıklığı kaynak servislere bağlıdır.
       </p>
 
       <h3>GoldPro</h3>
-      <p>Bilgilendirme amaçlı finansal veri ve hesaplama platformu.</p>
+      <p>Değerli piyasalar tek adreste.</p>
     </div>
   </section>
 
@@ -944,26 +1018,20 @@
     <div class="content-panel">
       <h2>Gizlilik Politikası</h2>
       <p>
-        GoldPro, bu sürümünde kullanıcı hesabı veya sunucu tabanlı
-        veritabanı kullanmaz.
+        Bu GoldPro sürümünde kullanıcı hesabı ve sunucu tabanlı veritabanı
+        bulunmamaktadır.
       </p>
 
       <h3>Yerel Depolama</h3>
       <p>
-        Ziyaret sayacı ve sekme bilgileri tarayıcının localStorage ve
-        sessionStorage alanlarında saklanabilir. Bu bilgiler sunucuya
-        gönderilmez ve tarayıcı verileri silindiğinde kaybolabilir.
+        Sayaç bilgileri tarayıcının yerel depolama alanında tutulur.
+        Bu bilgiler tüm ziyaretçiler arasında ortak değildir.
       </p>
 
-      <h3>Üçüncü Taraf Servisler</h3>
+      <h3>Üçüncü Taraf API Servisleri</h3>
       <p>
-        Fiyat verileri üçüncü taraf API servislerinden alınır. Bu servisler
-        kendi gizlilik ve kullanım koşullarına sahip olabilir.
-      </p>
-
-      <h3>İletişim</h3>
-      <p>
-        Bu örnek sürümde iletişim formu bulunmamaktadır.
+        Fiyat verileri üçüncü taraf servislerden alınır. Bu servislerin
+        kendi gizlilik politikaları ve kullanım koşulları geçerlidir.
       </p>
     </div>
   </section>
@@ -973,34 +1041,27 @@
     <div class="content-panel">
       <h2>Yasal Uyarılar</h2>
 
+      <h3>Bilgilendirme Amacı</h3>
       <p>
-        GoldPro üzerinde sunulan fiyatlar ve hesaplamalar yalnızca
-        bilgilendirme amacı taşır.
+        GoldPro üzerindeki fiyatlar ve hesaplamalar bilgilendirme amacı taşır.
       </p>
 
       <h3>Yatırım Tavsiyesi Değildir</h3>
       <p>
-        Bu sitedeki hiçbir bilgi yatırım tavsiyesi, alım-satım önerisi
-        veya kazanç garantisi olarak değerlendirilmemelidir.
+        Bu sitedeki bilgiler yatırım tavsiyesi, alım-satım önerisi veya
+        kazanç garantisi olarak değerlendirilmemelidir.
+      </p>
+
+      <h3>Fiyat Farkları</h3>
+      <p>
+        Spot fiyatlar ile kuyumcu, banka veya serbest piyasa fiyatları
+        arasında fark olabilir.
       </p>
 
       <h3>Veri Doğruluğu</h3>
       <p>
-        Fiyatlarda gecikme, kesinti veya veri sağlayıcı kaynaklı hata
-        meydana gelebilir. İşlem yapmadan önce ilgili finans kuruluşundan
-        güncel fiyatları kontrol edin.
-      </p>
-
-      <h3>Hesaplama Sonuçları</h3>
-      <p>
-        Hesaplama sonuçları teorik değerlerdir. İşçilik, vergi, komisyon,
-        alış-satış farkı ve diğer masraflar dahil olmayabilir.
-      </p>
-
-      <h3>Sorumluluk</h3>
-      <p>
-        Kullanıcılar finansal kararlarını kendi araştırmaları ve
-        değerlendirmeleri doğrultusunda vermelidir.
+        API servislerinde gecikme veya kesinti yaşanabilir. İşlem öncesinde
+        ilgili finans kuruluşunun güncel verilerini kontrol edin.
       </p>
     </div>
   </section>
@@ -1009,130 +1070,135 @@
 
 <footer>
   <div class="container footer-inner">
+
     <div>
-      <div class="logo">
-        <div class="logo-symbol"><span>◆</span></div>
-        <span>Gold<em>Pro</em></span>
-      </div>
-      <p style="margin-top:10px;">© <span id="year"></span> GoldPro. Tüm hakları saklıdır.</p>
+      <a class="brand" href="#" onclick="showPage('home');return false;">
+        <div class="brand-icon">
+          <svg viewBox="0 0 100 100" fill="none">
+            <path d="M50 5 95 50 50 95 5 50Z" fill="#261b08"/>
+            <path d="M50 17 83 50 50 83 17 50Z" fill="#f6d47b"/>
+            <path d="M50 29 71 50 50 71 29 50Z" fill="#6e4814"/>
+            <path d="M50 39 61 50 50 61 39 50Z" fill="#ffe9a8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Gold<span>Pro</span></div>
+          <div class="brand-caption">PRECIOUS MARKETS</div>
+        </div>
+      </a>
+      <div class="footer-copy">© <span id="year"></span> GoldPro</div>
     </div>
 
     <div class="footer-links">
       <button onclick="showPage('about')">Hakkımızda</button>
-      <button onclick="showPage('privacy')">Gizlilik Politikası</button>
+      <button onclick="showPage('privacy')">Gizlilik</button>
       <button onclick="showPage('legal')">Yasal Uyarılar</button>
     </div>
+
   </div>
 </footer>
 
 <script>
-  // ==========================================
-  // GOLDPRO - VERİTABANSIZ TEK DOSYA SİSTEMİ
-  // ==========================================
+  // ======================================
+  // GOLDPRO API AYARLARI
+  // ======================================
 
-  const METAL_API = "https://api.gold-api.com/price/";
-  const FX_API = "https://api.frankfurter.dev/v1/latest?base=USD";
+  const GOLD_API = "https://api.gold-api.com";
+  const FX_API = "https://api.frankfurter.dev/v2";
 
-  const metalDefinitions = [
-    { symbol: "XAU", name: "Altın", icon: "◆", unit: "USD / ons" },
-    { symbol: "XAG", name: "Gümüş", icon: "◇", unit: "USD / ons" },
-    { symbol: "XPT", name: "Platin", icon: "⬡", unit: "USD / ons" },
-    { symbol: "XPD", name: "Paladyum", icon: "◈", unit: "USD / ons" },
+  const metalList = [
+    { symbol: "XAU", name: "Altın", icon: "◆", unit: "Troy ons" },
+    { symbol: "XAG", name: "Gümüş", icon: "◇", unit: "Troy ons" },
+    { symbol: "XPT", name: "Platin", icon: "⬡", unit: "Troy ons" },
+    { symbol: "XPD", name: "Paladyum", icon: "◈", unit: "Troy ons" },
     { symbol: "HG", name: "Bakır", icon: "●", unit: "API fiyat birimi" }
   ];
 
-  const coinDefinitions = [
-    { name: "Çeyrek Altın", weight: 1.75, purity: 22 },
-    { name: "Yarım Altın", weight: 3.50, purity: 22 },
-    { name: "Tam Altın", weight: 7.00, purity: 22 },
-    { name: "Cumhuriyet Altını", weight: 7.216, purity: 22 },
-    { name: "Ata Altın", weight: 7.216, purity: 22 },
-    { name: "Beşli Altın", weight: 36.08, purity: 22 }
+  // Sadece istenen ayarlar
+  const karats = [24, 22, 18, 14, 8];
+
+  // Ağırlıklar yaklaşık standart ürün ağırlıklarıdır.
+  // Fiyatlar canlı has altın spot değerinden hesaplanır.
+  const goldTypes = [
+    { name: "Has Altın", weight: 1, purity: 24, note: "24 ayar saf altın" },
+    { name: "Gram Altın", weight: 1, purity: 24, note: "1 gramlık teorik değer" },
+    { name: "5 Gram Altın", weight: 5, purity: 24, note: "5 gramlık teorik değer" },
+    { name: "10 Gram Altın", weight: 10, purity: 24, note: "10 gramlık teorik değer" },
+    { name: "Çeyrek Altın", weight: 1.754, purity: 22, note: "Ziynet çeyrek yaklaşık" },
+    { name: "Yarım Altın", weight: 3.508, purity: 22, note: "Ziynet yarım yaklaşık" },
+    { name: "Tam Altın", weight: 7.016, purity: 22, note: "Ziynet tam yaklaşık" },
+    { name: "Cumhuriyet Altını", weight: 7.216, purity: 22, note: "Ata lira yaklaşık" },
+    { name: "Ata Altın", weight: 7.216, purity: 22, note: "Yaklaşık standart ağırlık" },
+    { name: "Reşat Altın", weight: 7.2, purity: 22, note: "Yaklaşık teorik içerik" },
+    { name: "Hamit Altın", weight: 7.2, purity: 22, note: "Yaklaşık teorik içerik" },
+    { name: "Gremse Altın", weight: 17.54, purity: 22, note: "2,5'luk ziynet yaklaşık" },
+    { name: "Beşli Altın", weight: 36.08, purity: 22, note: "Yaklaşık teorik içerik" }
   ];
 
   let metalPrices = {};
-  let fxRates = {};
-  let fxDate = "";
-  let lastMetalUpdate = null;
+  let currencies = [];
+  let currencyNames = {};
+  let usdRates = { USD: 1 };
+  let currentCurrency = "TRY";
+  let lastUpdate = null;
+  let refreshBusy = false;
 
-  const currencyNames = {
-    TRY: "Türk Lirası",
-    USD: "ABD Doları",
-    EUR: "Euro",
-    GBP: "İngiliz Sterlini",
-    CHF: "İsviçre Frangı",
-    JPY: "Japon Yeni",
-    CAD: "Kanada Doları",
-    AUD: "Avustralya Doları",
-    CNY: "Çin Yuanı",
-    INR: "Hindistan Rupisi",
-    RUB: "Rus Rublesi",
-    SAR: "Suudi Arabistan Riyali",
-    AED: "BAE Dirhemi",
-    SEK: "İsveç Kronu",
-    NOK: "Norveç Kronu",
-    DKK: "Danimarka Kronu",
-    PLN: "Polonya Zlotisi",
-    CZK: "Çek Korunası",
-    HUF: "Macar Forinti",
-    RON: "Rumen Leyi",
-    BGN: "Bulgar Levası",
-    BRL: "Brezilya Reali",
-    MXN: "Meksika Pesosu",
-    ZAR: "Güney Afrika Randı",
-    KRW: "Güney Kore Wonu",
-    SGD: "Singapur Doları",
-    HKD: "Hong Kong Doları",
-    NZD: "Yeni Zelanda Doları",
-    THB: "Tayland Bahtı",
-    IDR: "Endonezya Rupisi",
-    MYR: "Malezya Ringgiti",
-    ILS: "İsrail Şekeli",
-    ISK: "İzlanda Kronu",
-    PHP: "Filipin Pesosu",
-    TRY: "Türk Lirası"
-  };
+  const formatterCache = {};
 
-  const moneyFormat = (value, currency = "TRY") => {
-    if (!Number.isFinite(value)) return "Veri yok";
+  function formatMoney(value, code = currentCurrency) {
+    if (!Number.isFinite(value)) return "—";
 
     try {
-      return new Intl.NumberFormat("tr-TR", {
-        style: "currency",
-        currency,
-        maximumFractionDigits: 2
-      }).format(value);
+      if (!formatterCache[code]) {
+        formatterCache[code] = new Intl.NumberFormat("tr-TR", {
+          style: "currency",
+          currency: code,
+          maximumFractionDigits: 2
+        });
+      }
+
+      return formatterCache[code].format(value);
     } catch {
       return value.toLocaleString("tr-TR", {
         maximumFractionDigits: 2
-      }) + " " + currency;
+      }) + " " + code;
     }
-  };
+  }
 
-  const numberFormat = value =>
-    Number(value).toLocaleString("tr-TR", {
-      maximumFractionDigits: 4
+  function formatNumber(value, digits = 3) {
+    if (!Number.isFinite(value)) return "—";
+
+    return value.toLocaleString("tr-TR", {
+      maximumFractionDigits: digits
     });
+  }
 
-  function showPage(pageName) {
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[char]);
+  }
+
+  // ======================================
+  // SAYFA GEÇİŞLERİ
+  // ======================================
+
+  function showPage(name) {
     document.querySelectorAll(".page").forEach(page => {
       page.classList.remove("active");
     });
 
     document.querySelectorAll("nav button").forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.page === pageName
-      );
+      button.classList.toggle("active", button.dataset.page === name);
     });
 
-    const selected = document.getElementById(pageName);
-
-    if (selected) {
-      selected.classList.add("active");
-    }
-
+    document.getElementById(name)?.classList.add("active");
     document.getElementById("navigation").classList.remove("open");
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -1140,319 +1206,381 @@
     document.getElementById("navigation").classList.toggle("open");
   }
 
-  function makePriceCard(name, value, subtitle, icon = "◆", status = "Güncel veri") {
-    return `
-      <div class="price-card">
-        <div class="card-top">
-          <span class="card-name">${name}</span>
-          <span class="card-icon">${icon}</span>
-        </div>
-        <div class="price">${value}</div>
-        <div class="price-sub">${subtitle}</div>
-        <div class="status">${status}</div>
-      </div>
-    `;
-  }
+  // ======================================
+  // API YARDIMCILARI
+  // ======================================
 
-  async function fetchMetal(symbol) {
-    const response = await fetch(METAL_API + encodeURIComponent(symbol));
+  async function getJSON(url) {
+    const response = await fetch(url, {
+      headers: { "Accept": "application/json" },
+      cache: "no-store"
+    });
 
     if (!response.ok) {
-      throw new Error("Metal API hatası: " + symbol);
+      throw new Error("API response " + response.status);
     }
 
-    const data = await response.json();
+    return response.json();
+  }
 
-    const possiblePrice = [
-      data.price,
-      data.value,
-      data.rate
+  function readPrice(data) {
+    const candidates = [
+      data?.price,
+      data?.value,
+      data?.rate
     ];
 
-    const price = possiblePrice.find(
-      item => Number.isFinite(Number(item))
-    );
-
-    if (price === undefined) {
-      throw new Error("Fiyat bilgisi bulunamadı");
+    for (const candidate of candidates) {
+      const value = Number(candidate);
+      if (Number.isFinite(value) && value > 0) return value;
     }
 
-    return Number(price);
+    throw new Error("Price field missing");
   }
+
+  function getRate(code) {
+    return Number(usdRates[code]);
+  }
+
+  // USD fiyatını seçilen para birimine dönüştür.
+  function fromUSD(value, target = currentCurrency) {
+    if (!Number.isFinite(value)) return null;
+
+    const rate = getRate(target);
+    if (!Number.isFinite(rate)) return null;
+
+    return value * rate;
+  }
+
+  function getGoldUSDPerGram() {
+    const ouncePrice = metalPrices.XAU;
+
+    if (!Number.isFinite(ouncePrice)) return null;
+
+    return ouncePrice / 31.1034768;
+  }
+
+  function getGoldPrice(currency = currentCurrency) {
+    const usdGram = getGoldUSDPerGram();
+
+    if (usdGram === null) return null;
+
+    return fromUSD(usdGram, currency);
+  }
+
+  // ======================================
+  // METAL API
+  // ======================================
 
   async function loadMetals() {
     const results = await Promise.allSettled(
-      metalDefinitions.map(async metal => {
-        const price = await fetchMetal(metal.symbol);
-        return { ...metal, price };
+      metalList.map(async metal => {
+        const data = await getJSON(
+          `${GOLD_API}/price/${metal.symbol}/USD`
+        );
+
+        return {
+          symbol: metal.symbol,
+          price: readPrice(data),
+          updatedAt: data.updatedAt || data.updated_at || null
+        };
       })
     );
 
-    results.forEach((result, index) => {
-      const symbol = metalDefinitions[index].symbol;
+    let successful = false;
 
+    results.forEach((result, index) => {
       if (result.status === "fulfilled") {
-        metalPrices[symbol] = result.value.price;
+        const item = result.value;
+        metalPrices[item.symbol] = item.price;
+        successful = true;
+      } else {
+        // Önceki başarılı fiyat varsa onu koru.
+        console.warn("Metal güncellemesi bekleniyor:", metalList[index].symbol);
       }
     });
 
-    lastMetalUpdate = new Date();
+    if (successful) {
+      try {
+        localStorage.setItem("goldpro_metal_cache", JSON.stringify(metalPrices));
+      } catch {}
+      lastUpdate = new Date();
+    }
 
-    renderMetals();
-    renderGold();
-    renderCoins();
-    renderHome();
-
-    calculateGold();
+    renderAllPrices();
   }
+
+  // ======================================
+  // DÖVİZ API
+  // ======================================
 
   async function loadCurrencies() {
     try {
-      const response = await fetch(FX_API);
+      const [currencyData, rateData] = await Promise.all([
+        getJSON(`${FX_API}/currencies`),
+        getJSON(`${FX_API}/rates?base=USD`)
+      ]);
 
-      if (!response.ok) {
-        throw new Error("Döviz servisi yanıt vermedi");
+      currencyNames = {};
+
+      if (Array.isArray(currencyData)) {
+        currencyData.forEach(item => {
+          const code = item.currency || item.code || item;
+          const name = item.name || item.name_plural || code;
+          currencyNames[code] = name;
+        });
+      } else if (currencyData && typeof currencyData === "object") {
+        Object.entries(currencyData).forEach(([code, item]) => {
+          currencyNames[code] = item.name || item;
+        });
       }
 
-      const data = await response.json();
+      usdRates = { USD: 1 };
 
-      fxRates = {
-        ...data.rates,
-        USD: 1
-      };
+      if (Array.isArray(rateData)) {
+        rateData.forEach(row => {
+          const code = row.quote || row.currency;
+          const rate = Number(row.rate);
 
-      fxDate = data.date || "";
+          if (code && Number.isFinite(rate) && rate > 0) {
+            usdRates[code] = rate;
+          }
+        });
+      }
 
+      currencies = Object.keys(usdRates).sort();
+
+      if (!currencies.includes("TRY")) {
+        // TRY verisi API'de yoksa uydurma kur eklenmez.
+        console.warn("TRY kuru henüz API yanıtında bulunmuyor.");
+      }
+
+      updateCurrencySelectors();
       renderCurrencies();
-      fillCurrencySelects();
+      renderAllPrices();
+      calculateGold();
       calculateCurrency();
 
+      const date = Array.isArray(rateData) && rateData[0]?.date
+        ? rateData[0].date
+        : "";
+
       document.getElementById("currencyDate").textContent =
-        fxDate ? "Veri tarihi: " + fxDate : "";
+        date ? "Referans veri tarihi: " + date : "";
 
     } catch (error) {
-      console.error(error);
-      document.getElementById("currencyTable").innerHTML =
-        '<tr><td colspan="3">Döviz verileri şu anda alınamıyor.</td></tr>';
+      console.warn("Döviz güncellemesi bekleniyor:", error);
+      // Önceki başarılı veriler varsa ekranda kalır.
     }
   }
 
-  function getGoldUsdPerGram() {
-    const goldOunce = metalPrices.XAU;
+  function updateCurrencySelectors() {
+    const display = document.getElementById("displayCurrency");
+    const from = document.getElementById("currencyFrom");
+    const to = document.getElementById("currencyTo");
+    const goldCurrency = document.getElementById("goldCalcCurrency");
 
-    if (!Number.isFinite(goldOunce)) return null;
+    if (!currencies.length) return;
 
-    // 1 troy ons = 31.1034768 gram
-    return goldOunce / 31.1034768;
+    const makeOptions = () => currencies.map(code => {
+      const name = currencyNames[code] || code;
+      return `<option value="${escapeHTML(code)}">${escapeHTML(code)} - ${escapeHTML(name)}</option>`;
+    }).join("");
+
+    const html = makeOptions();
+
+    display.innerHTML = html;
+    from.innerHTML = html;
+    to.innerHTML = html;
+    goldCurrency.innerHTML = html;
+
+    display.value = currencies.includes(currentCurrency)
+      ? currentCurrency
+      : (currencies.includes("TRY") ? "TRY" : "USD");
+
+    from.value = currencies.includes("TRY") ? "TRY" : "USD";
+    to.value = currencies.includes("USD") ? "USD" : currencies[0];
+    goldCurrency.value = display.value;
+
+    currentCurrency = display.value;
   }
 
-  function getGoldTryPerGram() {
-    const goldUsd = getGoldUsdPerGram();
-    const usdTry = fxRates.TRY;
+  // ======================================
+  // ALTIN VE METAL GÖRÜNÜMLERİ
+  // ======================================
 
-    if (!Number.isFinite(goldUsd) || !Number.isFinite(usdTry)) {
-      return null;
-    }
+  function cardHTML(name, price, subtitle, icon) {
+    const shown = price === null
+      ? '<span class="skeleton"></span>'
+      : escapeHTML(formatMoney(price));
 
-    return goldUsd * usdTry;
+    return `
+      <article class="price-card">
+        <div class="card-top">
+          <span class="card-name">${escapeHTML(name)}</span>
+          <span class="card-icon">${escapeHTML(icon || "◆")}</span>
+        </div>
+        <div class="price">${shown}</div>
+        <div class="price-sub">${escapeHTML(subtitle || "")}</div>
+        <div class="price-state">● API fiyatı</div>
+      </article>
+    `;
   }
 
   function renderHome() {
-    const cards = document.getElementById("homeCards");
+    const gold = getGoldPrice();
 
-    const goldTry = getGoldTryPerGram();
-    const goldUsd = getGoldUsdPerGram();
-
-    const entries = [
-      goldTry !== null
-        ? makePriceCard("Gram Altın", moneyFormat(goldTry), "24 ayar teorik gram değeri", "◆")
-        : makePriceCard("Gram Altın", "Veri yok", "Fiyat bekleniyor", "◆", "Veri alınamadı")
+    const homeItems = [
+      cardHTML("Has Altın / Gram", gold, "24 ayar saf altın", "◆"),
+      cardHTML("Çeyrek Altın", coinValue(1.754, 22), "Teorik metal değeri", "◇"),
+      cardHTML("Gümüş / Ons", fromUSD(metalPrices.XAG), "Troy ons", "◈"),
+      cardHTML("Platin / Ons", fromUSD(metalPrices.XPT), "Troy ons", "⬡")
     ];
 
-    const silver = metalPrices.XAG;
-    const platinum = metalPrices.XPT;
-    const palladium = metalPrices.XPD;
-
-    entries.push(
-      makePriceCard(
-        "Ons Altın",
-        goldUsd !== null ? moneyFormat(metalPrices.XAU, "USD") : "Veri yok",
-        "USD / troy ons",
-        "◇"
-      )
-    );
-
-    entries.push(
-      makePriceCard(
-        "Gümüş",
-        Number.isFinite(silver) ? moneyFormat(silver, "USD") : "Veri yok",
-        "USD / ons",
-        "◇"
-      )
-    );
-
-    entries.push(
-      makePriceCard(
-        "Platin",
-        Number.isFinite(platinum) ? moneyFormat(platinum, "USD") : "Veri yok",
-        "USD / ons",
-        "⬡"
-      )
-    );
-
-    cards.innerHTML = entries.join("");
+    document.getElementById("homeCards").innerHTML = homeItems.join("");
 
     document.getElementById("lastUpdate").textContent =
-      lastMetalUpdate
-        ? "Son metal veri kontrolü: " + lastMetalUpdate.toLocaleTimeString("tr-TR")
-        : "Fiyat verisi bekleniyor...";
+      lastUpdate
+        ? "Son başarılı metal veri kontrolü: " + lastUpdate.toLocaleTimeString("tr-TR")
+        : "Piyasa verileri güncelleniyor...";
   }
 
-  function renderGold() {
-    const container = document.getElementById("goldCards");
-    const goldTry = getGoldTryPerGram();
+  function renderKaratCards() {
+    const gold = getGoldPrice();
 
-    if (goldTry === null) {
-      container.innerHTML = makePriceCard(
-        "Altın fiyatı",
-        "Veri bekleniyor",
-        "API bağlantısı kontrol ediliyor"
+    document.getElementById("karatCards").innerHTML = karats.map(karat => {
+      const value = gold === null ? null : gold * karat / 24;
+
+      return cardHTML(
+        karat + " Ayar Altın",
+        value,
+        "1 gram teorik karşılık",
+        "◆"
       );
-      return;
-    }
-
-    const cards = [];
-
-    for (let karat = 24; karat >= 1; karat--) {
-      const value = goldTry * karat / 24;
-
-      cards.push(
-        makePriceCard(
-          karat + " Ayar Altın",
-          moneyFormat(value),
-          "1 gram teorik karşılık",
-          "◆"
-        )
-      );
-    }
-
-    container.innerHTML = cards.join("");
+    }).join("");
   }
 
-  function renderCoins() {
-    const tbody = document.getElementById("coinTable");
-    const goldTry = getGoldTryPerGram();
+  function coinValue(weight, purity) {
+    const gold = getGoldPrice();
 
-    if (goldTry === null) {
-      tbody.innerHTML =
-        '<tr><td colspan="4">Altın fiyatı bekleniyor...</td></tr>';
-      return;
-    }
+    if (gold === null) return null;
 
-    tbody.innerHTML = coinDefinitions.map(coin => {
-      const pureGold = coin.weight * coin.purity / 24;
-      const value = pureGold * goldTry;
+    return gold * weight * purity / 24;
+  }
+
+  function renderCoinTable() {
+    const body = document.getElementById("coinTable");
+
+    body.innerHTML = goldTypes.map(item => {
+      const pureWeight = item.weight * item.purity / 24;
+      const value = coinValue(item.weight, item.purity);
+
+      const priceText = value === null
+        ? '<span class="skeleton"></span>'
+        : escapeHTML(formatMoney(value));
 
       return `
         <tr>
-          <td><span class="table-symbol">◆</span>${coin.name}</td>
-          <td>${numberFormat(coin.weight)} g</td>
-          <td>${coin.purity} ayar</td>
-          <td>${moneyFormat(value)}</td>
+          <td>
+            <div class="table-name">${escapeHTML(item.name)}</div>
+            <div class="table-sub">${escapeHTML(item.note)}</div>
+          </td>
+          <td>${formatNumber(item.weight, 3)} g</td>
+          <td>${formatNumber(pureWeight, 3)} g</td>
+          <td class="table-price">${priceText}</td>
         </tr>
       `;
     }).join("");
   }
 
   function renderMetals() {
-    const container = document.getElementById("metalCards");
+    document.getElementById("metalCards").innerHTML =
+      metalList.map(item => {
+        const usd = metalPrices[item.symbol];
+        const price = Number.isFinite(usd) ? fromUSD(usd) : null;
 
-    container.innerHTML = metalDefinitions.map(metal => {
-      const price = metalPrices[metal.symbol];
-
-      return makePriceCard(
-        metal.name,
-        Number.isFinite(price) ? moneyFormat(price, "USD") : "Veri yok",
-        metal.unit,
-        metal.icon,
-        Number.isFinite(price) ? "Veri alındı" : "Veri alınamadı"
-      );
-    }).join("");
+        return cardHTML(
+          item.name,
+          price,
+          item.unit,
+          item.icon
+        );
+      }).join("");
   }
+
+  function renderAllPrices() {
+    renderHome();
+    renderKaratCards();
+    renderCoinTable();
+    renderMetals();
+  }
+
+  // ======================================
+  // DÖVİZ TABLOSU
+  // ======================================
 
   function renderCurrencies() {
-    const tbody = document.getElementById("currencyTable");
+    const body = document.getElementById("currencyTable");
     const search = (
-      document.getElementById("currencySearch")?.value || ""
+      document.getElementById("currencySearch").value || ""
     ).toLocaleLowerCase("tr-TR");
 
-    if (!Object.keys(fxRates).length) {
-      tbody.innerHTML =
-        '<tr><td colspan="3">Döviz verileri yükleniyor...</td></tr>';
-      return;
-    }
+    const tryRate = getRate("TRY");
 
-    const entries = Object.entries(fxRates)
-      .filter(([code]) => code !== "USD")
-      .filter(([code]) => {
-        const name = currencyNames[code] || code;
-        return (
-          code.toLowerCase().includes(search) ||
-          name.toLocaleLowerCase("tr-TR").includes(search)
-        );
-      })
-      .sort((a, b) => a[0].localeCompare(b[0]));
+    const rows = currencies.filter(code => {
+      const name = currencyNames[code] || code;
 
-    tbody.innerHTML = entries.map(([code, rate]) => `
-      <tr>
-        <td>${currencyNames[code] || code}</td>
-        <td><span class="table-symbol">${code}</span></td>
-        <td>${numberFormat(rate)}</td>
-      </tr>
-    `).join("");
+      return (
+        code.toLowerCase().includes(search) ||
+        name.toLocaleLowerCase("tr-TR").includes(search)
+      );
+    });
 
-    if (!entries.length) {
-      tbody.innerHTML =
-        '<tr><td colspan="3">Aramanızla eşleşen para birimi bulunamadı.</td></tr>';
+    body.innerHTML = rows.map(code => {
+      const usdRate = getRate(code);
+
+      // 1 birim para biriminin TRY karşılığı
+      const tryValue = Number.isFinite(tryRate) && usdRate > 0
+        ? tryRate / usdRate
+        : null;
+
+      return `
+        <tr>
+          <td><span class="table-name">${escapeHTML(currencyNames[code] || code)}</span></td>
+          <td>${escapeHTML(code)}</td>
+          <td class="table-price">
+            ${tryValue === null ? '<span class="skeleton"></span>' : escapeHTML(formatMoney(tryValue, "TRY"))}
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    if (!rows.length) {
+      body.innerHTML = '<tr><td colspan="3">Arama sonucu bulunamadı.</td></tr>';
     }
   }
 
-  function fillCurrencySelects() {
-    const from = document.getElementById("currencyFrom");
-    const to = document.getElementById("currencyTo");
-
-    const codes = Object.keys(fxRates).sort();
-
-    if (!codes.length) return;
-
-    const options = codes.map(code => `
-      <option value="${code}">${code} - ${currencyNames[code] || code}</option>
-    `).join("");
-
-    const previousFrom = from.value || "USD";
-    const previousTo = to.value || "TRY";
-
-    from.innerHTML = options;
-    to.innerHTML = options;
-
-    from.value = fxRates[previousFrom] ? previousFrom : "USD";
-    to.value = fxRates[previousTo] ? previousTo : "TRY";
-  }
+  // ======================================
+  // HESAPLAMA ARAÇLARI
+  // ======================================
 
   function calculateGold() {
     const grams = Number(document.getElementById("goldGrams").value);
     const karat = Number(document.getElementById("goldKarat").value);
-    const goldTry = getGoldTryPerGram();
+    const currency = document.getElementById("goldCalcCurrency").value;
 
     const result = document.getElementById("goldResult");
+    const gramPrice = getGoldPrice(currency);
 
-    if (!Number.isFinite(grams) || grams < 0 || goldTry === null) {
-      result.textContent = "Fiyat bekleniyor";
+    if (!Number.isFinite(grams) || grams < 0 || gramPrice === null) {
+      result.innerHTML = '<span class="skeleton"></span>';
       return;
     }
 
-    const total = grams * goldTry * karat / 24;
-    result.textContent = moneyFormat(total);
+    result.textContent = formatMoney(
+      grams * gramPrice * karat / 24,
+      currency
+    );
   }
 
   function calculateCurrency() {
@@ -1462,130 +1590,151 @@
 
     const result = document.getElementById("currencyResult");
 
+    const fromRate = getRate(from);
+    const toRate = getRate(to);
+
     if (
       !Number.isFinite(amount) ||
       amount < 0 ||
-      !Number.isFinite(fxRates[from]) ||
-      !Number.isFinite(fxRates[to])
+      !Number.isFinite(fromRate) ||
+      !Number.isFinite(toRate) ||
+      fromRate <= 0
     ) {
-      result.textContent = "Kur verisi bekleniyor";
+      result.innerHTML = '<span class="skeleton"></span>';
       return;
     }
 
-    // API değerleri 1 USD'nin ilgili para birimi karşılığıdır.
-    const usdAmount = amount / fxRates[from];
-    const converted = usdAmount * fxRates[to];
+    const converted = amount / fromRate * toRate;
 
-    result.textContent = moneyFormat(converted, to);
+    result.textContent = formatMoney(converted, to);
   }
+
+  function onDisplayCurrencyChange() {
+    currentCurrency = document.getElementById("displayCurrency").value;
+
+    document.getElementById("goldCalcCurrency").value = currentCurrency;
+
+    renderAllPrices();
+    calculateGold();
+  }
+
+  // ======================================
+  // YENİLEME
+  // ======================================
 
   async function refreshAll() {
-    await Promise.allSettled([
-      loadMetals(),
-      loadCurrencies()
-    ]);
+    if (refreshBusy) return;
 
-    calculateGold();
-    calculateCurrency();
+    refreshBusy = true;
+
+    try {
+      await Promise.allSettled([
+        loadMetals(),
+        loadCurrencies()
+      ]);
+
+      renderAllPrices();
+      calculateGold();
+      calculateCurrency();
+    } finally {
+      refreshBusy = false;
+    }
   }
 
-  // ==========================================
-  // VERİTABANSIZ ZİYARETÇİ SAYACI
-  // ==========================================
+  // ======================================
+  // SON BAŞARILI FİYATLARI KORU
+  // ======================================
 
-  function setupLocalCounters() {
-    const VISIT_KEY = "goldpro_total_visits";
-    const ACTIVE_KEY = "goldpro_active_tabs";
-    const TAB_KEY = "goldpro_tab_id";
-    const COUNTED_KEY = "goldpro_counted";
+  function loadLocalCache() {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem("goldpro_metal_cache") || "{}"
+      );
 
-    let tabId = sessionStorage.getItem(TAB_KEY);
+      Object.entries(saved).forEach(([symbol, value]) => {
+        if (Number.isFinite(Number(value))) {
+          metalPrices[symbol] = Number(value);
+        }
+      });
+    } catch {}
+  }
+
+  // ======================================
+  // KÜÇÜK YEREL SAYAÇLAR
+  // ======================================
+
+  function setupTinyCounters() {
+    const VISITS = "goldpro_visits_v3";
+    const ACTIVE = "goldpro_active_v3";
+    const TAB = "goldpro_tab_v3";
+    const COUNTED = "goldpro_counted_v3";
+
+    let tabId = sessionStorage.getItem(TAB);
 
     if (!tabId) {
       tabId = (
-        window.crypto && crypto.randomUUID
+        crypto.randomUUID
           ? crypto.randomUUID()
-          : "tab-" + Date.now() + "-" + Math.random().toString(36).slice(2)
+          : "tab-" + Date.now() + Math.random()
       );
 
-      sessionStorage.setItem(TAB_KEY, tabId);
+      sessionStorage.setItem(TAB, tabId);
     }
 
-    // Aynı sekme oturumunda sayacı yalnızca bir kez artır.
-    if (!sessionStorage.getItem(COUNTED_KEY)) {
-      const current = Number(localStorage.getItem(VISIT_KEY) || 0);
-
-      localStorage.setItem(VISIT_KEY, String(current + 1));
-      sessionStorage.setItem(COUNTED_KEY, "1");
+    if (!sessionStorage.getItem(COUNTED)) {
+      const count = Number(localStorage.getItem(VISITS) || 0) + 1;
+      localStorage.setItem(VISITS, String(count));
+      sessionStorage.setItem(COUNTED, "1");
     }
 
-    function updateCounters() {
-      const now = Date.now();
-      let active = {};
+    function update() {
+      let tabs = {};
 
       try {
-        active = JSON.parse(localStorage.getItem(ACTIVE_KEY) || "{}");
-      } catch {
-        active = {};
-      }
+        tabs = JSON.parse(localStorage.getItem(ACTIVE) || "{}");
+      } catch {}
 
-      // İki dakikadan eski sekmeleri temizle.
-      Object.keys(active).forEach(id => {
-        if (now - active[id] > 120000) {
-          delete active[id];
-        }
+      const now = Date.now();
+
+      Object.keys(tabs).forEach(id => {
+        if (now - tabs[id] > 120000) delete tabs[id];
       });
 
-      active[tabId] = now;
+      tabs[tabId] = now;
 
       try {
-        localStorage.setItem(ACTIVE_KEY, JSON.stringify(active));
-      } catch (error) {
-        console.warn("Yerel sayaç kaydedilemedi:", error);
-      }
+        localStorage.setItem(ACTIVE, JSON.stringify(tabs));
+      } catch {}
 
       document.getElementById("visitCount").textContent =
-        Number(localStorage.getItem(VISIT_KEY) || 0).toLocaleString("tr-TR");
+        Number(localStorage.getItem(VISITS) || 0).toLocaleString("tr-TR");
 
       document.getElementById("activeCount").textContent =
-        Object.keys(active).length.toLocaleString("tr-TR");
+        Object.keys(tabs).length.toLocaleString("tr-TR");
     }
 
-    updateCounters();
-
-    setInterval(updateCounters, 15000);
-
-    window.addEventListener("focus", updateCounters);
-
-    window.addEventListener("beforeunload", () => {
-      let active = {};
-
-      try {
-        active = JSON.parse(localStorage.getItem(ACTIVE_KEY) || "{}");
-      } catch {
-        active = {};
-      }
-
-      delete active[tabId];
-
-      try {
-        localStorage.setItem(ACTIVE_KEY, JSON.stringify(active));
-      } catch {}
-    });
+    update();
+    setInterval(update, 15000);
+    window.addEventListener("focus", update);
   }
 
-  // ==========================================
-  // BAŞLANGIÇ
-  // ==========================================
+  // ======================================
+  // BAŞLAT
+  // ======================================
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-  setupLocalCounters();
+  loadLocalCache();
+  setupTinyCounters();
+  renderAllPrices();
+
+  // İlk veri yüklemesi
   refreshAll();
 
-  // Fiyatları belirli aralıklarla yeniden kontrol et.
-  // API sağlayıcısının güncelleme sıklığı farklı olabilir.
-  setInterval(refreshAll, 5 * 60 * 1000);
+  // Metal API yaklaşık 30 saniyede bir güncellendiğinden
+  // istekleri de 30 saniyeden sık göndermiyoruz.
+  setInterval(refreshAll, 30000);
 </script>
 
 </body>
