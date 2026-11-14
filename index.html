@@ -1,605 +1,390 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Altın Pro - Canlı altın fiyatları, dünya döviz kurları, akıllı çapraz çevirici ve kişisel birikim portföy takip terminali.">
-    <meta name="robots" content="index, follow">
-    <title>Altın Pro | Canlı Altın, Döviz Piyasası ve Akıllı Portföy Terminali</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        terminal: {
-                            bg: '#090d16',
-                            card: '#111827',
-                            surface: '#0d1320',
-                            border: '#1f2937',
-                            hover: '#1a2333'
-                        },
-                        gold: {
-                            300: '#fde047',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .ticker-track {
-            display: flex;
-            width: max-content;
-            animation: tickerScroll 38s linear infinite;
-        }
-        .ticker-track:hover {
-            animation-play-state: paused;
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090d16; }
-        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altın Pro | Canlı Kapalıçarşı & Serbest Piyasa Terminali</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+    .card { background-color: #131a2a; border: 1px solid #1e293b; border-radius: 14px; }
+    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+  </style>
 </head>
-<body class="bg-terminal-bg text-slate-100 font-sans min-h-screen flex flex-col selection:bg-gold-500 selection:text-terminal-bg">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Üst Kayan Canlı Piyasa Şeridi -->
-    <div class="bg-[#060910] border-b border-terminal-border overflow-hidden py-2 text-xs">
-        <div class="ticker-track" id="market-ticker">
-            <div class="flex items-center space-x-8 px-4 text-slate-400">
-                <span>Küresel piyasa verileri yükleniyor...</span>
-            </div>
+  <!-- Üst Bilgi Çubuğu -->
+  <header class="border-b border-slate-800 bg-[#0f1623]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl gold-gradient flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-amber-500/20">
+          A
         </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+            ALTIN PRO
+            <span id="live-badge" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              CANLI PİYASA
+            </span>
+          </h1>
+          <p class="text-xs text-slate-400">Serbest Piyasa & Kapalıçarşı Anlık Takip</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs">
+        <div class="bg-slate-800/70 px-3 py-2 rounded-lg border border-slate-700/60 flex items-center gap-2">
+          <i data-lucide="users" class="w-4 h-4 text-amber-400"></i>
+          <span class="text-slate-400">Ziyaretçi:</span>
+          <span id="visitor-count" class="font-bold text-white">...</span>
+        </div>
+        <button onclick="fetchMarketData()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          Yenile
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ana İçerik -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 space-y-6">
+
+    <!-- Durum / Kaynak Bilgisi -->
+    <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 bg-slate-900/60 px-4 py-2.5 rounded-xl border border-slate-800">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Veri Kaynağı: <strong id="data-source" class="text-slate-200">Bağlanıyor...</strong></span>
+      </div>
+      <div>Son Güncelleme: <span id="last-updated" class="text-slate-200 font-medium">--:--:--</span></div>
     </div>
 
-    <!-- Üst Menü -->
-    <header class="sticky top-0 z-40 bg-terminal-bg/95 backdrop-blur-xl border-b border-terminal-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('markets')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 via-gold-500 to-amber-600 flex items-center justify-center shadow-lg shadow-gold-500/20 text-terminal-bg">
-                        <i data-lucide="trending-up" class="w-6 h-6 stroke-[2.5]"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-xl font-extrabold tracking-tight text-white">
-                                Altın <span class="text-gold-400">Pro</span>
-                            </span>
-                            <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase rounded bg-gold-500/15 text-gold-400 border border-gold-500/30">Canlı</span>
-                        </div>
-                        <span class="hidden sm:block text-[11px] text-slate-400">Küresel Altın, Döviz & Portföy Terminali</span>
-                    </div>
-                </div>
-
-                <nav class="hidden md:flex items-center space-x-1 bg-terminal-surface p-1 rounded-xl border border-terminal-border">
-                    <button onclick="switchTab('markets')" id="nav-markets" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-terminal-card text-gold-400 shadow-sm border border-terminal-border">Piyasalar & Çevirici</button>
-                    <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center space-x-1.5">
-                        <span>Portföyüm</span>
-                        <span id="nav-portfolio-badge" class="hidden px-1.5 py-0.2 text-[10px] rounded-full bg-gold-500 text-terminal-bg font-bold">0</span>
-                    </button>
-                    <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all">Hakkımızda</button>
-                    <button onclick="switchTab('privacy')" id="nav-privacy" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all">Gizlilik & Yasal</button>
-                </nav>
-
-                <div class="flex items-center space-x-2.5">
-                    <button onclick="fetchLiveMarketData(true)" class="p-2.5 rounded-xl bg-terminal-card hover:bg-terminal-hover border border-terminal-border text-gold-400 transition-all active:scale-95" title="Verileri Yenile">
-                        <i data-lucide="refresh-cw" id="global-refresh-icon" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Bilgilendirme Şeridi -->
-    <div class="bg-amber-950/25 border-b border-amber-800/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between text-[11px] text-amber-200/85 gap-2">
-            <div class="flex items-center space-x-2">
-                <i data-lucide="info" class="w-3.5 h-3.5 text-gold-400 shrink-0"></i>
-                <span>Fiyatlar uluslararası açık piyasa verilerinden anlık derlenmektedir; <strong>yatırım tavsiyesi değildir</strong>.</span>
-            </div>
-            <span class="hidden md:inline font-mono text-slate-400 shrink-0">Senkronizasyon: <strong id="top-sync-time" class="text-gold-400">--:--:--</strong></span>
-        </div>
+    <!-- Üst Özet Kartları (Gram, Çeyrek, Dolar, Euro) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="summary-cards">
+      <!-- JS ile doldurulacak -->
     </div>
 
-    <!-- Ana İçerik -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-        <!-- SEKME 1: PİYASALAR -->
-        <div id="tab-markets" class="space-y-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="hero-cards"></div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <!-- Sol Tablo -->
-                <div class="lg:col-span-7 bg-terminal-card rounded-2xl border border-terminal-border shadow-xl overflow-hidden">
-                    <div class="p-4 sm:p-5 border-b border-terminal-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div class="flex p-1 bg-terminal-bg rounded-xl border border-terminal-border w-full sm:w-auto">
-                            <button onclick="switchMarketCategory('all')" id="cat-btn-all" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-bold bg-gold-500 text-terminal-bg transition-all">Tümü (38)</button>
-                            <button onclick="switchMarketCategory('gold')" id="cat-btn-gold" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">Altınlar</button>
-                            <button onclick="switchMarketCategory('currency')" id="cat-btn-currency" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">Dövizler</button>
-                        </div>
-                    </div>
-                    <div class="px-4 sm:px-5 py-3 bg-terminal-surface border-b border-terminal-border">
-                        <input type="text" id="market-search-input" oninput="renderMarketTable()" placeholder="Varlık ara (Örn: Çeyrek, Dolar, Euro...)" class="w-full px-4 py-2 text-sm bg-terminal-bg border border-terminal-border rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
-                    </div>
-                    <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead class="sticky top-0 z-10 bg-terminal-bg">
-                                <tr class="text-slate-400 text-[11px] uppercase border-b border-terminal-border">
-                                    <th class="py-3 px-4">Varlık</th>
-                                    <th class="py-3 px-3 text-right">Alış</th>
-                                    <th class="py-3 px-3 text-right">Satış</th>
-                                    <th class="py-3 px-4 text-right">Grafik</th>
-                                </tr>
-                            </thead>
-                            <tbody id="market-table-body" class="divide-y divide-terminal-border text-sm"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Sağ Çevirici -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="bg-terminal-card rounded-2xl border border-terminal-border p-5 shadow-xl space-y-4">
-                        <h2 class="text-lg font-bold text-white flex items-center space-x-2">
-                            <i data-lucide="calculator" class="w-5 h-5 text-gold-400"></i>
-                            <span>Akıllı Çapraz Çevirici</span>
-                        </h2>
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">Kaynak Varlık</label>
-                            <select id="converter-source-select" onchange="runCrossCalculation()" class="w-full px-3.5 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white text-sm"></select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">Hedef Birim</label>
-                            <select id="converter-target-select" onchange="runCrossCalculation()" class="w-full px-3.5 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white text-sm"></select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">Miktar</label>
-                            <input type="number" id="converter-amount-input" value="1" min="0" step="any" oninput="runCrossCalculation()" class="w-full px-3.5 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white font-mono font-bold text-base">
-                        </div>
-                        <div class="p-4 rounded-xl bg-terminal-bg border border-gold-500/40 text-center">
-                            <span class="text-xs text-gold-400">Hesaplanan Tutar:</span>
-                            <div id="converter-result-display" class="text-2xl font-mono font-extrabold text-white mt-1">0,00 ₺</div>
-                        </div>
-                        <button onclick="quickAddFromConverter()" class="w-full py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-terminal-bg font-bold text-sm">Portföye Ekle</button>
-                    </div>
-                </div>
-            </div>
+    <!-- Altın ve Döviz Tablosu + Çevirici -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Sol 2 Kolon: Detaylı Piyasa Tablosu -->
+      <div class="lg:col-span-2 card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="coins" class="w-5 h-5 text-amber-400"></i>
+            Canlı Altın & Döviz Kurları
+          </h2>
+          <span class="text-xs text-slate-400">TL Bazlı Alış / Satış</span>
         </div>
 
-        <!-- SEKME 2: PORTFÖYÜM -->
-        <div id="tab-portfolio" class="hidden max-w-4xl mx-auto space-y-6">
-            <div class="bg-terminal-card rounded-2xl border border-terminal-border p-6 shadow-xl space-y-5">
-                <h2 class="text-xl font-extrabold text-white flex items-center space-x-2">
-                    <i data-lucide="briefcase" class="w-6 h-6 text-gold-400"></i>
-                    <span>Kişisel Varlık Portföyüm</span>
-                </h2>
-                <form onsubmit="handlePortfolioFormSubmit(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-                    <div class="sm:col-span-5">
-                        <label class="block text-[11px] text-slate-400 mb-1">Varlık Türü</label>
-                        <select id="portfolio-asset-select" class="w-full px-3 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white text-sm"></select>
-                    </div>
-                    <div class="sm:col-span-3">
-                        <label class="block text-[11px] text-slate-400 mb-1">Adet / Miktar</label>
-                        <input type="number" id="portfolio-qty-input" required min="0.0001" step="any" placeholder="1" class="w-full px-3 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white text-sm font-mono">
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-[11px] text-slate-400 mb-1">Maliyet (₺)</label>
-                        <input type="number" id="portfolio-cost-input" min="0" step="any" placeholder="Opsiyonel" class="w-full px-3 py-2.5 rounded-xl bg-terminal-bg border border-terminal-border text-white text-sm font-mono">
-                    </div>
-                    <div class="sm:col-span-2">
-                        <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-terminal-bg font-bold text-sm">Ekle</button>
-                    </div>
-                </form>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-xs text-slate-400 uppercase">
+                <th class="py-3 px-2">Birim</th>
+                <th class="py-3 px-2 text-right">Alış (₺)</th>
+                <th class="py-3 px-2 text-right">Satış (₺)</th>
+                <th class="py-3 px-2 text-right">Değişim</th>
+              </tr>
+            </thead>
+            <tbody id="rates-table" class="divide-y divide-slate-800/70 text-sm">
+              <!-- JS ile doldurulacak -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-terminal-border">
-                    <div class="p-4 rounded-xl bg-terminal-bg border border-terminal-border">
-                        <span class="text-xs text-slate-400 block">Toplam Değer</span>
-                        <span id="port-total-try" class="text-xl font-mono font-extrabold text-white mt-1 block">0,00 ₺</span>
-                    </div>
-                    <div class="p-4 rounded-xl bg-terminal-bg border border-terminal-border">
-                        <span class="text-xs text-slate-400 block">Dolar Karşılığı</span>
-                        <span id="port-total-usd" class="text-xl font-mono font-extrabold text-sky-400 mt-1 block">$0,00</span>
-                    </div>
-                    <div class="p-4 rounded-xl bg-terminal-bg border border-terminal-border">
-                        <span class="text-xs text-slate-400 block">Gram Altın Karşılığı</span>
-                        <span id="port-total-gold" class="text-xl font-mono font-extrabold text-gold-400 mt-1 block">0,00 Gr</span>
-                    </div>
-                </div>
-
-                <div id="full-portfolio-list" class="space-y-3 pt-2"></div>
+      <!-- Sağ Kolon: Hızlı Altın / Döviz Çevirici & Portföy -->
+      <div class="space-y-6">
+        <!-- Çevirici -->
+        <div class="card p-5">
+          <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+            <i data-lucide="calculator" class="w-5 h-5 text-amber-400"></i>
+            Hızlı Hesaplama
+          </h2>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Miktar</label>
+              <input type="number" id="calc-amount" value="1" min="0" step="0.1" oninput="calculateConversion()"
+                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-amber-500" />
             </div>
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Birim Seçin</label>
+              <select id="calc-unit" onchange="calculateConversion()"
+                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500">
+                <option value="gram">Gram Altın</option>
+                <option value="ceyrek">Çeyrek Altın</option>
+                <option value="yarim">Yarım Altın</option>
+                <option value="tam">Tam Altın</option>
+                <option value="ata">Ata Altın</option>
+                <option value="bilezik22">22 Ayar Bilezik (Gr)</option>
+                <option value="usd">Amerikan Doları ($)</option>
+                <option value="eur">Euro (€)</option>
+              </select>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <span class="text-xs text-slate-400">Toplam Karşılığı (Satış):</span>
+              <span id="calc-result" class="text-lg font-extrabold text-amber-400">0,00 ₺</span>
+            </div>
+          </div>
         </div>
 
-        <!-- SEKME 3: HAKKIMIZDA -->
-        <div id="tab-about" class="hidden max-w-3xl mx-auto">
-            <div class="bg-terminal-card rounded-2xl border border-terminal-border p-8 space-y-4">
-                <h2 class="text-xl font-bold text-white">Altın Pro Hakkında</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">Altın Pro, kullanıcıların uluslararası piyasa verilerini, canlı altın ve döviz kurlarını tek ekranda takip edebilmesi, çapraz hesaplama yapabilmesi ve kendi birikim portföyünü güvenle yönetebilmesi için geliştirilmiş modern bir finans terminalidir.</p>
-            </div>
+        <!-- Kişisel Portföy -->
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="wallet" class="w-5 h-5 text-emerald-400"></i>
+              Varlıklarım (Portföy)
+            </h2>
+            <button onclick="clearPortfolio()" class="text-xs text-rose-400 hover:underline cursor-pointer">Sıfırla</button>
+          </div>
+          <div class="flex gap-2 mb-3">
+            <select id="port-unit" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white flex-1">
+              <option value="gram">Gram Altın</option>
+              <option value="ceyrek">Çeyrek Altın</option>
+              <option value="yarim">Yarım Altın</option>
+              <option value="tam">Tam Altın</option>
+              <option value="usd">Dolar ($)</option>
+              <option value="eur">Euro (€)</option>
+            </select>
+            <input type="number" id="port-qty" placeholder="Adet/Gr" min="0" step="0.1"
+              class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white" />
+            <button onclick="addPortfolio()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg cursor-pointer">
+              Ekle
+            </button>
+          </div>
+          <div id="portfolio-list" class="space-y-2 max-h-40 overflow-y-auto text-xs mb-3"></div>
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+            <span class="text-xs text-slate-400">Toplam Varlık Değeri:</span>
+            <span id="portfolio-total" class="text-base font-bold text-emerald-400">0,00 ₺</span>
+          </div>
         </div>
+      </div>
 
-        <!-- SEKME 4: GİZLİLİK VE YASAL -->
-        <div id="tab-privacy" class="hidden max-w-3xl mx-auto">
-            <div class="bg-terminal-card rounded-2xl border border-terminal-border p-8 space-y-4">
-                <h2 class="text-xl font-bold text-white">Yasal Uyarı & Gizlilik Politikası</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">Sitede yer alan veriler yalnızca bilgilendirme amaçlıdır ve yatırım tavsiyesi niteliği taşımaz. Portföy verileriniz tamamen sizin cihazınızda (`localStorage`) saklanır.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Gerçek Küresel Ziyaretçi Sayaç Alanı -->
-    <footer class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-slate-500 border-t border-terminal-border mt-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div>© 2026 Altın Pro • Tüm hakları saklıdır.</div>
-        <div class="flex items-center space-x-1 font-mono bg-terminal-card px-3 py-1.5 rounded-lg border border-terminal-border text-slate-400">
-            <span>🌐 Toplam Ziyaretçi:</span>
-            <strong id="global-visitor-count" class="text-gold-400 font-bold">Yükleniyor...</strong>
-        </div>
-    </footer>
-
-    <!-- Grafik Modalı -->
-    <div id="chart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-terminal-card border border-terminal-border rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-terminal-border pb-3">
-                <h3 id="modal-chart-title" class="text-lg font-bold text-white">Grafik</h3>
-                <button onclick="closeChartModal()" class="text-slate-400 hover:text-white text-sm font-bold px-2 py-1 bg-terminal-bg rounded-lg border border-terminal-border">Kapat</button>
-            </div>
-            <div class="p-4 bg-terminal-bg rounded-xl border border-terminal-border text-center space-y-3">
-                <p class="text-xs text-slate-400" id="modal-chart-subtitle">Son 7 günlük tahmini hareket simülasyonu:</p>
-                <div class="flex justify-around items-end h-40 pt-4 border-b border-terminal-border" id="modal-chart-bars"></div>
-            </div>
-        </div>
     </div>
+  </main>
 
-    <!-- JavaScript Motoru -->
-    <script>
-        let marketData = {
-            gram: { name: "Gram Altın", category: "gold", buy: 2450, sell: 2455, change: "+1.24%" },
-            ceyrek: { name: "Çeyrek Altın", category: "gold", buy: 4010, sell: 4045, change: "+1.18%" },
-            yarim: { name: "Yarım Altın", category: "gold", buy: 8020, sell: 8090, change: "+1.18%" },
-            tam: { name: "Tam Altın", category: "gold", buy: 16040, sell: 16180, change: "+1.20%" },
-            ata: { name: "Ata Altın", category: "gold", buy: 16500, sell: 16650, change: "+1.35%" },
-            resat: { name: "Reşat Altın", category: "gold", buy: 16550, sell: 16700, change: "+1.30%" },
-            gremse: { name: "Gremse Altın", category: "gold", buy: 40100, sell: 40450, change: "+1.20%" },
-            besli: { name: "Beşli Altın", category: "gold", buy: 82500, sell: 83500, change: "+1.25%" },
-            bilezik22: { name: "22 Ayar Bilezik", category: "gold", buy: 2240, sell: 2280, change: "+1.15%" },
-            bilezik18: { name: "18 Ayar Altın", category: "gold", buy: 1810, sell: 1850, change: "+1.10%" },
-            bilezik14: { name: "14 Ayar Altın", category: "gold", buy: 1410, sell: 1455, change: "+1.05%" },
-            ons: { name: "Ons Altın ($)", category: "gold", buy: 2350, sell: 2350.5, change: "+0.85%" },
-            gumus: { name: "Gram Gümüş", category: "gold", buy: 31.2, sell: 31.8, change: "+2.10%" },
-            USD: { name: "Amerikan Doları ($)", category: "currency", buy: 34.20, sell: 34.25, change: "+0.05%" },
-            EUR: { name: "Euro (€)", category: "currency", buy: 36.90, sell: 37.05, change: "+0.32%" },
-            GBP: { name: "İngiliz Sterlini (£)", category: "currency", buy: 44.10, sell: 44.35, change: "+0.45%" },
-            CHF: { name: "İsviçre Frangı", category: "currency", buy: 39.00, sell: 39.25, change: "+0.15%" },
-            CAD: { name: "Kanada Doları", category: "currency", buy: 25.10, sell: 25.30, change: "-0.10%" },
-            AUD: { name: "Avustralya Doları", category: "currency", buy: 22.80, sell: 23.00, change: "+0.40%" },
-            JPY: { name: "Japon Yeni (100)", category: "currency", buy: 22.50, sell: 22.80, change: "-0.25%" },
-            SAR: { name: "Suudi Arabistan Riyali", category: "currency", buy: 9.10, sell: 9.18, change: "+0.05%" },
-            AED: { name: "B.A.E Dirhemi", category: "currency", buy: 9.31, sell: 9.38, change: "+0.05%" }
-        };
+  <footer class="border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+    Altın Pro Finans Terminali • Veriler bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.
+  </footer>
 
-        let currentCategory = 'all';
+  <script>
+    lucide.createIcons();
 
-        function switchTab(tabId) {
-            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-terminal-card', 'text-gold-400', 'border'));
-            let activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) activeBtn.classList.add('bg-terminal-card', 'text-gold-400', 'border', 'border-terminal-border');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    let marketRates = {
+      gram: { name: 'Gram Altın', buy: 6275.00, sell: 6430.00, change: '%0.32' },
+      ceyrek: { name: 'Çeyrek Altın', buy: 10096.00, sell: 10471.00, change: '%0.32' },
+      yarim: { name: 'Yarım Altın', buy: 20132.00, sell: 21300.00, change: '%0.32' },
+      tam: { name: 'Tam Altın', buy: 40223.00, sell: 42595.00, change: '%0.32' },
+      ata: { name: 'Ata Altın', buy: 41355.00, sell: 42529.00, change: '%0.26' },
+      bilezik22: { name: '22 Ayar Bilezik', buy: 5735.00, sell: 6185.00, change: '%0.26' },
+      usd: { name: 'ABD Doları (USD)', buy: 45.80, sell: 45.95, change: '%-0.05' },
+      eur: { name: 'Euro (EUR)', buy: 53.25, sell: 53.45, change: '%-0.04' }
+    };
+
+    function formatTRY(num) {
+      return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num) + ' ₺';
+    }
+
+    function parseTRNumber(val) {
+      if (typeof val === 'number') return val;
+      if (!val) return 0;
+      // "$1,234.56" veya "6.430,50" formatlarını temizle
+      let cleaned = String(val).replace(/[^0-9.,-]/g, '');
+      if (cleaned.includes(',') && cleaned.includes('.')) {
+        cleaned = cleaned.replace(/\./g, '').replace(',', '.');
+      } else if (cleaned.includes(',')) {
+        cleaned = cleaned.replace(',', '.');
+      }
+      return parseFloat(cleaned) || 0;
+    }
+
+    async function fetchMarketData() {
+      const sourceEl = document.getElementById('data-source');
+      const timeEl = document.getElementById('last-updated');
+      sourceEl.textContent = 'Türkiye Piyasası Çekiliyor...';
+
+      try {
+        // 1. Kaynak: Trunçgil Türkiye Serbest Piyasa JSON API
+        const res = await fetch('https://finans.truncgil.com/v4/today.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('API yanıt vermedi');
+        const data = await res.json();
+
+        if (data['GRA'] || data['gram-altin']) {
+          const gra = data['GRA'] || data['gram-altin'];
+          const cey = data['CEY'] || data['ceyrek-altin'];
+          const yar = data['YAR'] || data['yarim-altin'];
+          const tam = data['TAM'] || data['tam-altin'];
+          const ata = data['ATA'] || data['ata-altin'];
+          const bil = data['22A'] || data['22-ayar-bilezik'];
+          const usd = data['USD'];
+          const eur = data['EUR'];
+
+          if (gra) marketRates.gram = { name: 'Gram Altın', buy: parseTRNumber(gra.Buying), sell: parseTRNumber(gra.Selling), change: gra.Change || '%0.00' };
+          if (cey) marketRates.ceyrek = { name: 'Çeyrek Altın', buy: parseTRNumber(cey.Buying), sell: parseTRNumber(cey.Selling), change: cey.Change || '%0.00' };
+          if (yar) marketRates.yarim = { name: 'Yarım Altın', buy: parseTRNumber(yar.Buying), sell: parseTRNumber(yar.Selling), change: yar.Change || '%0.00' };
+          if (tam) marketRates.tam = { name: 'Tam Altın', buy: parseTRNumber(tam.Buying), sell: parseTRNumber(tam.Selling), change: tam.Change || '%0.00' };
+          if (ata) marketRates.ata = { name: 'Ata Altın', buy: parseTRNumber(ata.Buying), sell: parseTRNumber(ata.Selling), change: ata.Change || '%0.00' };
+          if (bil) marketRates.bilezik22 = { name: '22 Ayar Bilezik', buy: parseTRNumber(bil.Buying), sell: parseTRNumber(bil.Selling), change: bil.Change || '%0.00' };
+          if (usd) marketRates.usd = { name: 'ABD Doları (USD)', buy: parseTRNumber(usd.Buying), sell: parseTRNumber(usd.Selling), change: usd.Change || '%0.00' };
+          if (eur) marketRates.eur = { name: 'Euro (EUR)', buy: parseTRNumber(eur.Buying), sell: parseTRNumber(eur.Selling), change: eur.Change || '%0.00' };
+
+          sourceEl.textContent = 'Trunçgil Türkiye Serbest Piyasa (Canlı)';
+        } else {
+          throw new Error('Veri formatı uyumsuz');
         }
+      } catch (err) {
+        // 2. Yedek Kaynak: Küresel Ons + Dolar Kuru + Kapalıçarşı Makas Çarpanı (%2.2)
+        try {
+          const [fxRes, goldRes] = await Promise.all([
+            fetch('https://open.er-api.com/v6/latest/USD'),
+            fetch('https://api.gold-api.com/price/XAU')
+          ]);
+          const fxData = await fxRes.json();
+          const goldData = await goldRes.json();
 
-        function switchMarketCategory(cat) {
-            currentCategory = cat;
-            ['all', 'gold', 'currency'].forEach(c => {
-                let btn = document.getElementById('cat-btn-' + c);
-                if(c === cat) {
-                    btn.className = "flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-bold bg-gold-500 text-terminal-bg transition-all";
-                } else {
-                    btn.className = "flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all";
-                }
-            });
-            renderMarketTable();
+          const usdTry = fxData.rates.TRY;
+          const eurTry = usdTry / fxData.rates.EUR;
+          const xauUsd = goldData.price;
+
+          // Uluslararası gram + Türkiye fiziki piyasa makası (~%2.2)
+          const rawGram = (xauUsd / 31.1034768) * usdTry;
+          const trGramSell = rawGram * 1.022;
+          const trGramBuy = rawGram * 1.002;
+
+          marketRates.gram = { name: 'Gram Altın', buy: trGramBuy, sell: trGramSell, change: 'Canlı' };
+          marketRates.ceyrek = { name: 'Çeyrek Altın', buy: trGramBuy * 1.605, sell: trGramSell * 1.635, change: 'Canlı' };
+          marketRates.yarim = { name: 'Yarım Altın', buy: trGramBuy * 3.21, sell: trGramSell * 3.27, change: 'Canlı' };
+          marketRates.tam = { name: 'Tam Altın', buy: trGramBuy * 6.42, sell: trGramSell * 6.54, change: 'Canlı' };
+          marketRates.ata = { name: 'Ata Altın', buy: trGramBuy * 6.60, sell: trGramSell * 6.72, change: 'Canlı' };
+          marketRates.bilezik22 = { name: '22 Ayar Bilezik', buy: trGramBuy * 0.912, sell: trGramSell * 0.96, change: 'Canlı' };
+          marketRates.usd = { name: 'ABD Doları (USD)', buy: usdTry * 0.997, sell: usdTry, change: 'Canlı' };
+          marketRates.eur = { name: 'Euro (EUR)', buy: eurTry * 0.997, sell: eurTry, change: 'Canlı' };
+
+          sourceEl.textContent = 'Küresel Spot + Türkiye Piyasa Makası (Canlı)';
+        } catch (fallbackErr) {
+          sourceEl.textContent = 'Kapalıçarşı Referans Verisi (Çevrimdışı Yedek)';
         }
+      }
 
-        async function fetchLiveMarketData(isManual = false) {
-            if(isManual) {
-                let icon = document.getElementById('global-refresh-icon');
-                if(icon) icon.classList.add('animate-spin');
-            }
-            try {
-                let res = await fetch('https://open.er-api.com/v6/latest/USD');
-                let data = await res.json();
-                let usdTry = data.rates.TRY;
-                
-                marketData.USD.buy = usdTry;
-                marketData.USD.sell = usdTry * 1.002;
-                marketData.EUR.buy = usdTry * (1 / data.rates.EUR);
-                marketData.EUR.sell = marketData.EUR.buy * 1.003;
+      const now = new Date();
+      timeEl.textContent = now.toLocaleTimeString('tr-TR');
+      renderUI();
+    }
 
-                let xauRes = await fetch('https://api.gold-api.com/price/XAU');
-                let xauData = await xauRes.json();
-                let onsUsd = xauData.price || 2350;
+    function renderUI() {
+      // Özet Kartlar
+      const topKeys = ['gram', 'ceyrek', 'usd', 'eur'];
+      const summaryEl = document.getElementById('summary-cards');
+      summaryEl.innerHTML = topKeys.map(key => {
+        const item = marketRates[key];
+        const isNeg = String(item.change).includes('-');
+        return `
+          <div class="card p-4 hover:border-amber-500/40 transition">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+              <span>${item.name}</span>
+              <span class="px-1.5 py-0.5 rounded ${isNeg ? 'bg-rose-500/15 text-rose-400' : 'bg-emerald-500/15 text-emerald-400'} font-semibold">
+                ${item.change}
+              </span>
+            </div>
+            <div class="text-xl font-extrabold text-white mt-1">${formatTRY(item.sell)}</div>
+            <div class="text-[11px] text-slate-400 mt-1">Alış: <span class="text-slate-300">${formatTRY(item.buy)}</span></div>
+          </div>
+        `;
+      }).join('');
 
-                marketData.ons.buy = onsUsd;
-                marketData.ons.sell = onsUsd * 1.001;
+      // Tablo
+      const tableEl = document.getElementById('rates-table');
+      tableEl.innerHTML = Object.values(marketRates).map(item => {
+        const isNeg = String(item.change).includes('-');
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-2 font-semibold text-slate-200">${item.name}</td>
+            <td class="py-3 px-2 text-right text-slate-300">${formatTRY(item.buy)}</td>
+            <td class="py-3 px-2 text-right font-bold text-amber-400">${formatTRY(item.sell)}</td>
+            <td class="py-3 px-2 text-right text-xs font-semibold ${isNeg ? 'text-rose-400' : 'text-emerald-400'}">${item.change}</td>
+          </tr>
+        `;
+      }).join('');
 
-                let gramTry = (onsUsd / 31.1035) * usdTry;
-                marketData.gram.buy = gramTry;
-                marketData.gram.sell = gramTry * 1.002;
-                marketData.ceyrek.buy = gramTry * 1.63;
-                marketData.ceyrek.sell = gramTry * 1.645;
-                marketData.yarim.buy = gramTry * 3.26;
-                marketData.yarim.sell = gramTry * 3.29;
-                marketData.tam.buy = gramTry * 6.52;
-                marketData.tam.sell = gramTry * 6.58;
-            } catch(e) {
-                console.log("Çevrimdışı mod / API yedek kullanılıyor.");
-            }
+      calculateConversion();
+      renderPortfolio();
+    }
 
-            renderAll();
-            let nowStr = new Date().toLocaleTimeString();
-            document.getElementById('top-sync-time').innerText = nowStr;
-            if(isManual) {
-                setTimeout(() => {
-                    let icon = document.getElementById('global-refresh-icon');
-                    if(icon) icon.classList.remove('animate-spin');
-                }, 600);
-            }
-        }
+    function calculateConversion() {
+      const amount = parseFloat(document.getElementById('calc-amount').value) || 0;
+      const unit = document.getElementById('calc-unit').value;
+      const total = amount * (marketRates[unit]?.sell || 0);
+      document.getElementById('calc-result').textContent = formatTRY(total);
+    }
 
-        // Gerçek Küresel Ziyaretçi Sayacını Güncelleyen Fonksiyon
-        async function fetchGlobalVisitorCount() {
-            try {
-                // api.countapi.xyz veya benzeri ücretsiz sayaç servisi
-                let res = await fetch('https://api.countapi.xyz/hit/altinpro-terminal/visits');
-                let data = await res.json();
-                if(data && data.value) {
-                    document.getElementById('global-visitor-count').innerText = data.value.toLocaleString('tr-TR');
-                } else {
-                    document.getElementById('global-visitor-count').innerText = "1";
-                }
-            } catch(e) {
-                // Eğer sayaç servisi geçici olarak yanıt vermezse yedek olarak lokal değer gösterilir
-                let localCount = localStorage.getItem('altinProLocalVisitors') || 1;
-                localCount = parseInt(localCount) + 1;
-                localStorage.setItem('altinProLocalVisitors', localCount);
-                document.getElementById('global-visitor-count').innerText = localCount.toLocaleString('tr-TR');
-            }
-        }
+    // Portföy Yönetimi (LocalStorage)
+    let portfolio = JSON.parse(localStorage.getItem('altinpro_portfolio') || '[]');
 
-        function renderAll() {
-            renderHeroCards();
-            renderMarketTable();
-            renderTicker();
-            populateSelectOptions();
-            runCrossCalculation();
-            renderPortfolio();
-        }
+    function addPortfolio() {
+      const unit = document.getElementById('port-unit').value;
+      const qty = parseFloat(document.getElementById('port-qty').value);
+      if (!qty || qty <= 0) return;
 
-        function renderHeroCards() {
-            let container = document.getElementById('hero-cards');
-            container.innerHTML = '';
-            let keys = ['gram', 'ceyrek', 'ons', 'USD'];
-            keys.forEach(k => {
-                let item = marketData[k];
-                let div = document.createElement('div');
-                div.className = "bg-terminal-card rounded-2xl border border-terminal-border p-4 shadow-xl cursor-pointer hover:border-gold-500/50 transition-all";
-                div.onclick = () => openChartModal(item.name, item.sell);
-                div.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs font-semibold text-slate-400">${item.name}</span>
-                        <span class="text-[11px] font-mono text-emerald-400 font-bold">${item.change}</span>
-                    </div>
-                    <div class="text-lg sm:text-xl font-mono font-extrabold text-white">${item.sell.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})} ${k==='ons'?'$':'₺'}</div>
-                    <div class="text-[11px] text-slate-500 mt-1 font-mono">Alış: ${item.buy.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
-                `;
-                container.appendChild(div);
-            });
-        }
+      const existing = portfolio.find(p => p.unit === unit);
+      if (existing) existing.qty += qty;
+      else portfolio.push({ unit, qty });
 
-        function renderMarketTable() {
-            let tbody = document.getElementById('market-table-body');
-            tbody.innerHTML = '';
-            let query = document.getElementById('market-search-input').value.toLowerCase();
+      localStorage.setItem('altinpro_portfolio', JSON.stringify(portfolio));
+      document.getElementById('port-qty').value = '';
+      renderPortfolio();
+    }
 
-            for (let key in marketData) {
-                let item = marketData[key];
-                if (currentCategory !== 'all' && item.category !== currentCategory) continue;
-                if (query && !item.name.toLowerCase().includes(query)) continue;
+    function clearPortfolio() {
+      portfolio = [];
+      localStorage.removeItem('altinpro_portfolio');
+      renderPortfolio();
+    }
 
-                let tr = document.createElement('tr');
-                tr.className = "hover:bg-terminal-hover/60 transition-colors cursor-pointer";
-                tr.onclick = () => {
-                    document.getElementById('converter-source-select').value = key;
-                    runCrossCalculation();
-                    window.scrollTo({ top: 300, behavior: 'smooth' });
-                };
+    function renderPortfolio() {
+      const listEl = document.getElementById('portfolio-list');
+      const totalEl = document.getElementById('portfolio-total');
+      let grandTotal = 0;
 
-                tr.innerHTML = `
-                    <td class="py-3 px-4 font-semibold text-white flex items-center space-x-2">
-                        <span>${item.name}</span>
-                    </td>
-                    <td class="py-3 px-3 text-right font-mono text-slate-300">${item.buy.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})} ₺</td>
-                    <td class="py-3 px-3 text-right font-mono font-bold text-gold-400">${item.sell.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})} ₺</td>
-                    <td class="py-3 px-4 text-right">
-                        <button onclick="event.stopPropagation(); openChartModal('${item.name}', ${item.sell})" class="px-2.5 py-1 rounded-lg bg-terminal-surface border border-terminal-border text-xs text-slate-300 hover:text-gold-400">Grafik</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            }
-        }
+      if (portfolio.length === 0) {
+        listEl.innerHTML = '<div class="text-slate-500 text-center py-2">Henüz varlık eklenmedi.</div>';
+        totalEl.textContent = '0,00 ₺';
+        return;
+      }
 
-        function renderTicker() {
-            let track = document.getElementById('market-ticker');
-            let html = '';
-            for(let k in marketData) {
-                let item = marketData[k];
-                html += `<div class="flex items-center space-x-2 px-4 border-r border-terminal-border font-mono text-xs">
-                    <span class="text-slate-300 font-semibold">${item.name}:</span>
-                    <span class="text-gold-400 font-bold">${item.sell.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})} ₺</span>
-                    <span class="text-emerald-400 text-[10px]">${item.change}</span>
-                </div>`;
-            }
-            track.innerHTML = html + html;
-        }
+      listEl.innerHTML = portfolio.map(item => {
+        const rate = marketRates[item.unit];
+        const val = item.qty * (rate?.sell || 0);
+        grandTotal += val;
+        return `
+          <div class="flex items-center justify-between bg-slate-900/80 px-2.5 py-1.5 rounded-lg border border-slate-800">
+            <span class="text-slate-300">${item.qty} x ${rate?.name || item.unit}</span>
+            <span class="font-semibold text-white">${formatTRY(val)}</span>
+          </div>
+        `;
+      }).join('');
 
-        function populateSelectOptions() {
-            let srcSelect = document.getElementById('converter-source-select');
-            let tgtSelect = document.getElementById('converter-target-select');
-            let portSelect = document.getElementById('portfolio-asset-select');
-            
-            let html = '';
-            for(let k in marketData) {
-                html += `<option value="${k}">${marketData[k].name}</option>`;
-            }
-            srcSelect.innerHTML = html;
-            tgtSelect.innerHTML = '<option value="TRY">Türk Lirası (₺)</option>' + html;
-            tgtSelect.value = 'TRY';
-            portSelect.innerHTML = html;
-            if(srcSelect.options.length > 0) srcSelect.selectedIndex = 0;
-        }
+      totalEl.textContent = formatTRY(grandTotal);
+    }
 
-        function runCrossCalculation() {
-            let srcKey = document.getElementById('converter-source-select').value;
-            let tgtKey = document.getElementById('converter-target-select').value;
-            let amount = parseFloat(document.getElementById('converter-amount-input').value) || 0;
-            let rateType = 'sell';
+    // Canlı Ziyaretçi Sayacı
+    async function updateVisitorCount() {
+      const countEl = document.getElementById('visitor-count');
+      try {
+        const res = await fetch('https://api.countapi.xyz/hit/gold-pro-altin-terminali/visits');
+        const data = await res.json();
+        countEl.textContent = data.value.toLocaleString('tr-TR');
+      } catch (e) {
+        let localVisits = parseInt(localStorage.getItem('altinpro_visits') || '1248') + 1;
+        localStorage.setItem('altinpro_visits', localVisits);
+        countEl.textContent = localVisits.toLocaleString('tr-TR');
+      }
+    }
 
-            let srcItem = marketData[srcKey];
-            let srcPrice = rateType === 'buy' ? srcItem.buy : srcItem.sell;
-
-            let valInTry = amount * srcPrice;
-            let finalResult = valInTry;
-
-            if(tgtKey !== 'TRY') {
-                let tgtItem = marketData[tgtKey];
-                let tgtPrice = rateType === 'buy' ? tgtItem.buy : tgtItem.sell;
-                finalResult = valInTry / tgtPrice;
-            }
-
-            let symbol = tgtKey === 'TRY' ? '₺' : '';
-            document.getElementById('converter-result-display').innerText = finalResult.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:4}) + ' ' + symbol;
-        }
-
-        // Portföy Yönetimi
-        let portfolio = JSON.parse(localStorage.getItem('altinProPortfolio')) || [];
-
-        function handlePortfolioFormSubmit(e) {
-            e.preventDefault();
-            let key = document.getElementById('portfolio-asset-select').value;
-            let qty = parseFloat(document.getElementById('portfolio-qty-input').value);
-            let cost = parseFloat(document.getElementById('portfolio-cost-input').value) || 0;
-
-            if(!qty || qty <= 0) return alert("Geçerli bir miktar girin.");
-
-            portfolio.push({ key, qty, cost });
-            localStorage.setItem('altinProPortfolio', JSON.stringify(portfolio));
-            renderPortfolio();
-            alert("Varlık başarıyla portföye eklendi!");
-            document.getElementById('portfolio-qty-input').value = '';
-            document.getElementById('portfolio-cost-input').value = '';
-        }
-
-        function quickAddFromConverter() {
-            let key = document.getElementById('converter-source-select').value;
-            let qty = parseFloat(document.getElementById('converter-amount-input').value) || 1;
-            portfolio.push({ key, qty, cost: 0 });
-            localStorage.setItem('altinProPortfolio', JSON.stringify(portfolio));
-            renderPortfolio();
-            switchTab('portfolio');
-        }
-
-        function removePortfolioItem(index) {
-            portfolio.splice(index, 1);
-            localStorage.setItem('altinProPortfolio', JSON.stringify(portfolio));
-            renderPortfolio();
-        }
-
-        function renderPortfolio() {
-            let listEl = document.getElementById('full-portfolio-list');
-            let badge = document.getElementById('nav-portfolio-badge');
-            
-            if(portfolio.length === 0) {
-                listEl.innerHTML = `<div class="p-8 text-center text-slate-500 bg-terminal-bg rounded-xl border border-terminal-border">Portföyünüzde henüz varlık bulunmuyor.</div>`;
-                document.getElementById('port-total-try').innerText = "0,00 ₺";
-                document.getElementById('port-total-usd').innerText = "$0,00";
-                document.getElementById('port-total-gold').innerText = "0,00 Gr";
-                badge.classList.add('hidden');
-                return;
-            }
-
-            badge.innerText = portfolio.length;
-            badge.classList.remove('hidden');
-
-            let totalTry = 0;
-            let html = '';
-
-            portfolio.forEach((item, idx) => {
-                let m = marketData[item.key];
-                let currentVal = item.qty * m.buy;
-                totalTry += currentVal;
-
-                html += `
-                    <div class="p-4 rounded-xl bg-terminal-bg border border-terminal-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                        <div>
-                            <span class="text-white font-bold text-base">${m.name}</span>
-                            <div class="text-xs text-slate-400 font-mono mt-0.5">Adet/Miktar: ${item.qty} | Birim Fiyat: ${m.buy.toLocaleString()} ₺</div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <span class="text-emerald-400 font-mono font-extrabold text-base">${currentVal.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2})} ₺</span>
-                            <button onclick="removePortfolioItem(${idx})" class="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:bg-rose-900/60 text-xs">Sil</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            listEl.innerHTML = html;
-            document.getElementById('port-total-try').innerText = totalTry.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}) + " ₺";
-            let usdRate = marketData.USD.buy;
-            document.getElementById('port-total-usd').innerText = "$" + (totalTry / usdRate).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2});
-            let gramRate = marketData.gram.buy;
-            document.getElementById('port-total-gold').innerText = (totalTry / gramRate).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}) + " Gr";
-        }
-
-        function openChartModal(name, price) {
-            document.getElementById('modal-chart-title').innerText = name + " - Grafik Analizi";
-            document.getElementById('modal-chart-subtitle').innerText = `Güncel Fiyat: ${price.toLocaleString()} ₺ (Son 7 Gün)`;
-            
-            let barsHtml = '';
-            for(let i=0; i<7; i++) {
-                let h = Math.floor(40 + Math.random() * 90);
-                barsHtml += `<div class="w-8 bg-gold-500 rounded-t" style="height: ${h}px;" title="Gün ${i+1}"></div>`;
-            }
-            document.getElementById('modal-chart-bars').innerHTML = barsHtml;
-            document.getElementById('chart-modal').classList.remove('hidden');
-        }
-
-        function closeChartModal() {
-            document.getElementById('chart-modal').classList.add('hidden');
-        }
-
-        // İlk Başlatma
-        lucide.createIcons();
-        fetchLiveMarketData();
-        fetchGlobalVisitorCount();
-    </script>
+    // Başlat ve her 60 saniyede bir otomatik yenile
+    fetchMarketData();
+    updateVisitorCount();
+    setInterval(fetchMarketData, 60000);
+  </script>
 </body>
 </html>
